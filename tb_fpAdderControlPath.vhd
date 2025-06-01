@@ -1,7 +1,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
-USE std.env.stop;
+
 
 ENTITY tb_fpAdderControlPath IS
 END tb_fpAdderControlPath;
@@ -12,7 +12,7 @@ ARCHITECTURE behavior OF tb_fpAdderControlPath IS
     COMPONENT fpAdderControlPath
         PORT(
             clk, reset: IN STD_LOGIC;
-            expEqual, exp1LtExp2, manResNeg, sign1, sign2, cOut, overflow, manResMSB, manResLSB : IN STD_LOGIC;
+            expEqual, exp1LtExp2, manResNeg, sign1, sign2, cOut1, cOut2, overflow, manResMSB, manResLSB : IN STD_LOGIC;
             loadExpA, loadExpB, loadMan1, loadMan2, loadSign1, loadSign2, loadManRes, loadExpRes: OUT STD_LOGIC;
             shiftRMan1, shiftRMan2, resultShiftR, resultShiftL: OUT STD_LOGIC;
             opOrder, subMantissas, subResult, selManRes, incExp1, incExp2, incManRes, incExpRes, decExpRes, overflowFlag: OUT STD_LOGIC;
@@ -28,7 +28,8 @@ ARCHITECTURE behavior OF tb_fpAdderControlPath IS
     SIGNAL manResNeg    : STD_LOGIC := '0';
     SIGNAL sign1        : STD_LOGIC := '0';
     SIGNAL sign2        : STD_LOGIC := '0';
-    SIGNAL cOut         : STD_LOGIC := '0';
+    SIGNAL cOut1         : STD_LOGIC := '0';
+    SIGNAL cOut2         : STD_LOGIC := '0';
     SIGNAL overflow     : STD_LOGIC := '0';
     SIGNAL manResMSB    : STD_LOGIC := '0';
     SIGNAL manResLSB    : STD_LOGIC := '0';
@@ -54,7 +55,8 @@ BEGIN
         manResNeg => manResNeg,
         sign1 => sign1,
         sign2 => sign2,
-        cOut => cOut,
+        cOut1 => cOut1,
+        cOut2 => cOut2,
         overflow => overflow,
         manResMSB => manResMSB,
         manResLSB => manResLSB,
@@ -126,7 +128,7 @@ BEGIN
         WAIT FOR clk_period;
 
         -- State 6: state_out(6)
-        cOut <= '1';
+        cOut1 <= '1';
         WAIT FOR clk_period;
 
         -- State 7: state_out(7)
@@ -142,7 +144,7 @@ BEGIN
 
         -- State 9: state_out(9)
         manResNeg <= '0';
-        cOut <= '0';
+        cOut1 <= '0';
         manResLSB <= '1';
         WAIT FOR clk_period;
 
@@ -151,7 +153,7 @@ BEGIN
         WAIT FOR clk_period;
 
         -- State 11: state_out(11)
-        overflow <= '1';
+        cOut2 <= '1';
         WAIT FOR clk_period;
 
         -- State 12: state_out(12)
@@ -165,7 +167,7 @@ BEGIN
         WAIT FOR 5 * clk_period;
 
         report "Calling 'stop' - simulation complete";
-        stop; 
+        assert false report "End of simulation" severity failure;
     END PROCESS;
 
 END behavior;

@@ -4,7 +4,7 @@ USE ieee.std_logic_1164.ALL;
 ENTITY fpAdderControlPath is
     PORT(
         clk, reset: IN STD_LOGIC;
-        expEqual, exp1LtExp2, manResNeg, sign1, sign2, cOut, overflow, manResMSB, manResLSB : IN STD_LOGIC; -- Status signals
+        expEqual, exp1LtExp2, manResNeg, sign1, sign2, cOut1, cOut2, overflow, manResMSB, manResLSB : IN STD_LOGIC; -- Status signals
         loadExpA, loadExpB, loadMan1, loadMan2, loadSign1, loadSign2, loadManRes, loadExpRes: OUT STD_LOGIC; -- Load control signals
         shiftRMan1, shiftRMan2, resultShiftR, resultShiftL: OUT STD_LOGIC; -- Shift control signals
         opOrder, subMantissas, subResult, selManRes, incExp1, incExp2, incManRes, incExpRes, decExpRes, overflowFlag: OUT STD_LOGIC; -- Arithmetic control signals
@@ -51,12 +51,12 @@ BEGIN
     state_in(3) <= state_out(0) AND expEqual AND (sign1 XOR sign2) AND (NOT sign1);
     state_in(4) <= state_out(0) AND expEqual AND (sign1 XOR sign2) AND sign1;
     state_in(5) <= state_out(0) AND expEqual AND (NOT (sign1 XOR sign2));
-    state_in(6) <= state_out(5) AND cOut;
+    state_in(6) <= state_out(5) AND cOut1;
     state_in(7) <= (state_out(3) OR state_out(4)) AND overflow;
     state_in(8) <= (state_out(3) OR state_out(4)) AND (NOT overflow) AND manResNeg;
-    state_in(9) <= (state_out(6) OR state_out(12) OR (state_out(5) AND (NOT cOut))) AND manResLSB;
+    state_in(9) <= (state_out(6) OR state_out(12) OR (state_out(5) AND (NOT cOut1))) AND manResLSB;
     state_in(10) <= state_out(8) AND (NOT manResMSB);
-    state_in(11) <= state_out(9) AND overflow;
+    state_in(11) <= state_out(9) AND cOut2;
     state_in(12) <= (state_out(3) OR state_out(4)) AND (NOT manResNeg) AND manResMSB;
 
     control_path_reset <= NOT reset;

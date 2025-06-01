@@ -1,0 +1,18 @@
+# Compile of enardFF_2.vhd was successful.
+# Compile of fpAdderControlPath.vhd was successful.
+# Compile of mux21.vhd was successful.
+# Compile of shiftleft1.vhd was successful.
+# Compile of shiftright1.vhd was successful.
+# Compile of tb_fpAdderControlPath.vhd failed with 5 errors.
+# 6 compiles, 1 failed with 5 errors. 
+# Compile of enardFF_2.vhd was successful.
+# Compile of fpAdderControlPath.vhd was successful.
+# Compile of mux21.vhd was successful.
+# Compile of shiftleft1.vhd was successful.
+# Compile of shiftright1.vhd was successful.
+# Compile of tb_fpAdderControlPath.vhd failed with 3 errors.
+# Compile of tb_fpAdderControlPath.vhd failed with 3 errors.
+# 6 compiles, 1 failed with 3 errors. 
+# Compile of fpAdderControlPath.vhd was successful.
+# Compile of tb_fpAdderControlPath.vhd was successful.
+# 2 compiles, 0 failed with no errors. 
