@@ -4,11 +4,11 @@ USE ieee.std_logic_1164.ALL;
 ENTITY fpMultiplierControlPathMult is
     PORT(
         clk, reset: IN STD_LOGIC;
-        startMult, multiplierLSB, countEq8: IN STD_LOGIC; -- Status signals
+        startMult, multiplierLSB, lastIteration: IN STD_LOGIC; -- Status signals
         ldMultiplicand, ldMultiplier, ldProduct: OUT STD_LOGIC; -- Load control signals
         shiftRProduct, shiftRMultiplier: OUT STD_LOGIC; -- Shift control signals
-        incCount, multRdy: OUT STD_LOGIC; -- Arithmetic control signals
-        greset: OUT STD_LOGIC); 
+        incCount, multRdy: OUT STD_LOGIC -- Arithmetic control signals
+    ); 
 END fpMultiplierControlPathMult;
 
 ARCHITECTURE rtl OF fpMultiplierControlPathMult is
@@ -45,10 +45,12 @@ BEGIN
     END GENERATE stateRegloop;
 
     -- State Input Signals
-    state_in(0) <= (NOT startMult) OR reset;
-    state_in(1) <= (state_out(0) AND startMult AND multiplierLSB) OR (state_out(2) AND (NOT countEq8) AND multiplierLSB);
-    state_in(2) <= state_out(1) OR (state_out(0) AND startMult AND (NOT multiplierLSB)) OR (state_out(2) AND (NOT countEq8) AND (NOT multiplierLSB));
-    state_in(3) <= state_out(2) AND countEq8;
+    state_in(0) <= (state_out(0) AND (NOT startMult)) OR reset;
+    state_in(1) <= (state_out(0) AND startMult AND multiplierLSB) OR (state_out(2) AND (NOT lastIteration) AND multiplierLSB);
+    state_in(2) <= state_out(1) OR 
+                   (state_out(0) AND startMult AND (NOT multiplierLSB)) OR 
+                   (state_out(2) AND (NOT lastIteration) AND (NOT multiplierLSB));
+    state_in(3) <= state_out(2) AND lastIteration;
 
 
     control_path_reset <= NOT reset;
@@ -58,12 +60,9 @@ BEGIN
     ldMultiplier  <= state_out(0);
     ldProduct  <= state_out(1);
 
-    greset <= state_out(0);
-
     shiftRMultiplier <= state_out(2);
     shiftRProduct <= state_out(2);
     incCount <= state_out(2);
 
     multRdy <= state_out(3);
-
 end rtl;

@@ -1,194 +1,198 @@
-|fpAdderControlPath
-clk => enardFF_2:stateReg0.i_clock
-clk => enardFF_2:stateRegloop:1:state_n.i_clock
-clk => enardFF_2:stateRegloop:2:state_n.i_clock
-clk => enardFF_2:stateRegloop:3:state_n.i_clock
-clk => enardFF_2:stateRegloop:4:state_n.i_clock
-clk => enardFF_2:stateRegloop:5:state_n.i_clock
-clk => enardFF_2:stateRegloop:6:state_n.i_clock
-clk => enardFF_2:stateRegloop:7:state_n.i_clock
-clk => enardFF_2:stateRegloop:8:state_n.i_clock
-clk => enardFF_2:stateRegloop:9:state_n.i_clock
-clk => enardFF_2:stateRegloop:10:state_n.i_clock
-clk => enardFF_2:stateRegloop:11:state_n.i_clock
-clk => enardFF_2:stateRegloop:12:state_n.i_clock
-reset => enardFF_2:stateReg0.i_d
-reset => enardFF_2:stateRegloop:1:state_n.i_resetBar
-reset => enardFF_2:stateRegloop:2:state_n.i_resetBar
-reset => enardFF_2:stateRegloop:3:state_n.i_resetBar
-reset => enardFF_2:stateRegloop:4:state_n.i_resetBar
-reset => enardFF_2:stateRegloop:5:state_n.i_resetBar
-reset => enardFF_2:stateRegloop:6:state_n.i_resetBar
-reset => enardFF_2:stateRegloop:7:state_n.i_resetBar
-reset => enardFF_2:stateRegloop:8:state_n.i_resetBar
-reset => enardFF_2:stateRegloop:9:state_n.i_resetBar
-reset => enardFF_2:stateRegloop:10:state_n.i_resetBar
-reset => enardFF_2:stateRegloop:11:state_n.i_resetBar
-reset => enardFF_2:stateRegloop:12:state_n.i_resetBar
-expEqual => state_in.IN1
-expEqual => state_in.IN1
-expEqual => state_in.IN1
-expEqual => state_in[1].IN1
-expEqual => state_in[2].IN1
-exp1LtExp2 => state_in.IN1
-exp1LtExp2 => state_in.IN1
-manResNeg => state_in[8].IN1
-manResNeg => state_in.IN1
-sign1 => state_in.IN0
-sign1 => state_in.IN0
-sign1 => state_in[4].IN1
-sign1 => state_in.IN0
-sign1 => state_in[3].IN1
-sign2 => state_in.IN1
-sign2 => state_in.IN1
-sign2 => state_in.IN1
-cOut => state_in[6].IN1
-cOut => state_in.IN1
-overflow => state_in[7].IN1
-overflow => state_in[11].IN1
-overflow => state_in.IN1
-manResMSB => state_in[12].IN1
-manResMSB => state_in[10].IN1
-manResLSB => state_in[9].IN1
-loadExpA <= enardFF_2:stateReg0.o_q
-loadExpB <= enardFF_2:stateReg0.o_q
-loadMan1 <= enardFF_2:stateReg0.o_q
-loadMan2 <= enardFF_2:stateReg0.o_q
-loadSign1 <= enardFF_2:stateReg0.o_q
-loadSign2 <= enardFF_2:stateReg0.o_q
-loadManRes <= loadManRes.DB_MAX_OUTPUT_PORT_TYPE
-loadExpRes <= loadManRes.DB_MAX_OUTPUT_PORT_TYPE
-shiftRMan1 <= enardFF_2:stateRegloop:1:state_n.o_q
-shiftRMan2 <= enardFF_2:stateRegloop:2:state_n.o_q
-resultShiftR <= enardFF_2:stateRegloop:6:state_n.o_q
-resultShiftL <= enardFF_2:stateRegloop:10:state_n.o_q
-opOrder <= enardFF_2:stateRegloop:3:state_n.o_q
-subMantissas <= loadManRes.DB_MAX_OUTPUT_PORT_TYPE
-subResult <= enardFF_2:stateRegloop:8:state_n.o_q
-selManRes <= selManRes.DB_MAX_OUTPUT_PORT_TYPE
-incExp1 <= enardFF_2:stateRegloop:1:state_n.o_q
-incExp2 <= enardFF_2:stateRegloop:2:state_n.o_q
-incManRes <= enardFF_2:stateRegloop:9:state_n.o_q
-incExpRes <= incExpRes.DB_MAX_OUTPUT_PORT_TYPE
-decExpRes <= enardFF_2:stateRegloop:10:state_n.o_q
-overflowFlag <= enardFF_2:stateRegloop:7:state_n.o_q
-greset <= enardFF_2:stateReg0.o_q
+|GRS_Round
+round_in[0] => sticky_bit.IN1
+round_in[1] => sticky_bit.IN1
+round_in[2] => sticky_bit.IN1
+round_in[3] => sticky_bit.IN1
+round_in[4] => sticky_bit.IN1
+round_in[5] => sticky_bit.IN0
+round_in[6] => sticky_bit.IN1
+round_in[7] => mux_1.IN1
+round_in[8] => mux_2[0].OUTPUTSELECT
+round_in[9] => mux_1.IN1
+round_in[9] => nBitAdderSubtractor:adder.i_Ai[0]
+round_in[10] => nBitAdderSubtractor:adder.i_Ai[1]
+round_in[11] => nBitAdderSubtractor:adder.i_Ai[2]
+round_in[12] => nBitAdderSubtractor:adder.i_Ai[3]
+round_in[13] => nBitAdderSubtractor:adder.i_Ai[4]
+round_in[14] => nBitAdderSubtractor:adder.i_Ai[5]
+round_in[15] => nBitAdderSubtractor:adder.i_Ai[6]
+round_in[16] => nBitAdderSubtractor:adder.i_Ai[7]
+round_in[17] => nBitAdderSubtractor:adder.i_Ai[8]
+round_in[18] => nBitAdderSubtractor:adder.i_Ai[9]
+round_out[0] << <GND>
+round_out[1] << <GND>
+round_out[2] << <GND>
+round_out[3] << <GND>
+round_out[4] << <GND>
+round_out[5] << <GND>
+round_out[6] << <GND>
+round_out[7] << <GND>
+round_out[8] << nBitAdderSubtractor:adder.o_Sum[0]
+round_out[9] << nBitAdderSubtractor:adder.o_Sum[1]
+round_out[10] << nBitAdderSubtractor:adder.o_Sum[2]
+round_out[11] << nBitAdderSubtractor:adder.o_Sum[3]
+round_out[12] << nBitAdderSubtractor:adder.o_Sum[4]
+round_out[13] << nBitAdderSubtractor:adder.o_Sum[5]
+round_out[14] << nBitAdderSubtractor:adder.o_Sum[6]
+round_out[15] << nBitAdderSubtractor:adder.o_Sum[7]
+round_out[16] << nBitAdderSubtractor:adder.o_Sum[8]
+round_out[17] << nBitAdderSubtractor:adder.o_Sum[9]
+overflow << nBitAdderSubtractor:adder.o_CarryOut
 
 
-|fpAdderControlPath|enARdFF_2:stateReg0
-i_resetBar => int_q.ACLR
-i_d => int_q.DATAIN
-i_enable => int_q.ENA
-i_clock => int_q.CLK
-o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+|GRS_Round|nBitAdderSubtractor:adder
+i_Ai[0] => oneBitAdderSubtractor:add_0.i_Ai
+i_Ai[1] => oneBitAdderSubtractor:loop_add:1:addrn.i_Ai
+i_Ai[2] => oneBitAdderSubtractor:loop_add:2:addrn.i_Ai
+i_Ai[3] => oneBitAdderSubtractor:loop_add:3:addrn.i_Ai
+i_Ai[4] => oneBitAdderSubtractor:loop_add:4:addrn.i_Ai
+i_Ai[5] => oneBitAdderSubtractor:loop_add:5:addrn.i_Ai
+i_Ai[6] => oneBitAdderSubtractor:loop_add:6:addrn.i_Ai
+i_Ai[7] => oneBitAdderSubtractor:loop_add:7:addrn.i_Ai
+i_Ai[8] => oneBitAdderSubtractor:loop_add:8:addrn.i_Ai
+i_Ai[9] => oneBitAdderSubtractor:loop_add:9:addrn.i_Ai
+i_Bi[0] => oneBitAdderSubtractor:add_0.i_Bi
+i_Bi[1] => oneBitAdderSubtractor:loop_add:1:addrn.i_Bi
+i_Bi[2] => oneBitAdderSubtractor:loop_add:2:addrn.i_Bi
+i_Bi[3] => oneBitAdderSubtractor:loop_add:3:addrn.i_Bi
+i_Bi[4] => oneBitAdderSubtractor:loop_add:4:addrn.i_Bi
+i_Bi[5] => oneBitAdderSubtractor:loop_add:5:addrn.i_Bi
+i_Bi[6] => oneBitAdderSubtractor:loop_add:6:addrn.i_Bi
+i_Bi[7] => oneBitAdderSubtractor:loop_add:7:addrn.i_Bi
+i_Bi[8] => oneBitAdderSubtractor:loop_add:8:addrn.i_Bi
+i_Bi[9] => oneBitAdderSubtractor:loop_add:9:addrn.i_Bi
+operationFlag => oneBitAdderSubtractor:add_0.i_CarryIn
+operationFlag => oneBitAdderSubtractor:add_0.operationFlag
+operationFlag => oneBitAdderSubtractor:loop_add:1:addrn.operationFlag
+operationFlag => oneBitAdderSubtractor:loop_add:2:addrn.operationFlag
+operationFlag => oneBitAdderSubtractor:loop_add:3:addrn.operationFlag
+operationFlag => oneBitAdderSubtractor:loop_add:4:addrn.operationFlag
+operationFlag => oneBitAdderSubtractor:loop_add:5:addrn.operationFlag
+operationFlag => oneBitAdderSubtractor:loop_add:6:addrn.operationFlag
+operationFlag => oneBitAdderSubtractor:loop_add:7:addrn.operationFlag
+operationFlag => oneBitAdderSubtractor:loop_add:8:addrn.operationFlag
+operationFlag => oneBitAdderSubtractor:loop_add:9:addrn.operationFlag
+o_CarryOut <= oneBitAdderSubtractor:loop_add:9:addrn.o_CarryOut
+o_overflow <= o_overflow.DB_MAX_OUTPUT_PORT_TYPE
+o_Sum[0] <= oneBitAdderSubtractor:add_0.o_Sum
+o_Sum[1] <= oneBitAdderSubtractor:loop_add:1:addrn.o_Sum
+o_Sum[2] <= oneBitAdderSubtractor:loop_add:2:addrn.o_Sum
+o_Sum[3] <= oneBitAdderSubtractor:loop_add:3:addrn.o_Sum
+o_Sum[4] <= oneBitAdderSubtractor:loop_add:4:addrn.o_Sum
+o_Sum[5] <= oneBitAdderSubtractor:loop_add:5:addrn.o_Sum
+o_Sum[6] <= oneBitAdderSubtractor:loop_add:6:addrn.o_Sum
+o_Sum[7] <= oneBitAdderSubtractor:loop_add:7:addrn.o_Sum
+o_Sum[8] <= oneBitAdderSubtractor:loop_add:8:addrn.o_Sum
+o_Sum[9] <= oneBitAdderSubtractor:loop_add:9:addrn.o_Sum
 
 
-|fpAdderControlPath|enARdFF_2:\stateRegloop:1:state_n
-i_resetBar => int_q.ACLR
-i_d => int_q.DATAIN
-i_enable => int_q.ENA
-i_clock => int_q.CLK
-o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+|GRS_Round|nBitAdderSubtractor:adder|oneBitAdderSubtractor:add_0
+i_CarryIn => carryFromBoth.IN0
+i_CarryIn => carryFromAi.IN0
+operationFlag => xor_Bi.IN0
+i_Ai => carryFromBoth.IN1
+i_Ai => carryFromAi.IN1
+i_Bi => xor_Bi.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|fpAdderControlPath|enARdFF_2:\stateRegloop:2:state_n
-i_resetBar => int_q.ACLR
-i_d => int_q.DATAIN
-i_enable => int_q.ENA
-i_clock => int_q.CLK
-o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+|GRS_Round|nBitAdderSubtractor:adder|oneBitAdderSubtractor:\loop_add:1:addrn
+i_CarryIn => carryFromBoth.IN0
+i_CarryIn => carryFromAi.IN0
+operationFlag => xor_Bi.IN0
+i_Ai => carryFromBoth.IN1
+i_Ai => carryFromAi.IN1
+i_Bi => xor_Bi.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|fpAdderControlPath|enARdFF_2:\stateRegloop:3:state_n
-i_resetBar => int_q.ACLR
-i_d => int_q.DATAIN
-i_enable => int_q.ENA
-i_clock => int_q.CLK
-o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+|GRS_Round|nBitAdderSubtractor:adder|oneBitAdderSubtractor:\loop_add:2:addrn
+i_CarryIn => carryFromBoth.IN0
+i_CarryIn => carryFromAi.IN0
+operationFlag => xor_Bi.IN0
+i_Ai => carryFromBoth.IN1
+i_Ai => carryFromAi.IN1
+i_Bi => xor_Bi.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|fpAdderControlPath|enARdFF_2:\stateRegloop:4:state_n
-i_resetBar => int_q.ACLR
-i_d => int_q.DATAIN
-i_enable => int_q.ENA
-i_clock => int_q.CLK
-o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+|GRS_Round|nBitAdderSubtractor:adder|oneBitAdderSubtractor:\loop_add:3:addrn
+i_CarryIn => carryFromBoth.IN0
+i_CarryIn => carryFromAi.IN0
+operationFlag => xor_Bi.IN0
+i_Ai => carryFromBoth.IN1
+i_Ai => carryFromAi.IN1
+i_Bi => xor_Bi.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|fpAdderControlPath|enARdFF_2:\stateRegloop:5:state_n
-i_resetBar => int_q.ACLR
-i_d => int_q.DATAIN
-i_enable => int_q.ENA
-i_clock => int_q.CLK
-o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+|GRS_Round|nBitAdderSubtractor:adder|oneBitAdderSubtractor:\loop_add:4:addrn
+i_CarryIn => carryFromBoth.IN0
+i_CarryIn => carryFromAi.IN0
+operationFlag => xor_Bi.IN0
+i_Ai => carryFromBoth.IN1
+i_Ai => carryFromAi.IN1
+i_Bi => xor_Bi.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|fpAdderControlPath|enARdFF_2:\stateRegloop:6:state_n
-i_resetBar => int_q.ACLR
-i_d => int_q.DATAIN
-i_enable => int_q.ENA
-i_clock => int_q.CLK
-o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+|GRS_Round|nBitAdderSubtractor:adder|oneBitAdderSubtractor:\loop_add:5:addrn
+i_CarryIn => carryFromBoth.IN0
+i_CarryIn => carryFromAi.IN0
+operationFlag => xor_Bi.IN0
+i_Ai => carryFromBoth.IN1
+i_Ai => carryFromAi.IN1
+i_Bi => xor_Bi.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|fpAdderControlPath|enARdFF_2:\stateRegloop:7:state_n
-i_resetBar => int_q.ACLR
-i_d => int_q.DATAIN
-i_enable => int_q.ENA
-i_clock => int_q.CLK
-o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+|GRS_Round|nBitAdderSubtractor:adder|oneBitAdderSubtractor:\loop_add:6:addrn
+i_CarryIn => carryFromBoth.IN0
+i_CarryIn => carryFromAi.IN0
+operationFlag => xor_Bi.IN0
+i_Ai => carryFromBoth.IN1
+i_Ai => carryFromAi.IN1
+i_Bi => xor_Bi.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|fpAdderControlPath|enARdFF_2:\stateRegloop:8:state_n
-i_resetBar => int_q.ACLR
-i_d => int_q.DATAIN
-i_enable => int_q.ENA
-i_clock => int_q.CLK
-o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+|GRS_Round|nBitAdderSubtractor:adder|oneBitAdderSubtractor:\loop_add:7:addrn
+i_CarryIn => carryFromBoth.IN0
+i_CarryIn => carryFromAi.IN0
+operationFlag => xor_Bi.IN0
+i_Ai => carryFromBoth.IN1
+i_Ai => carryFromAi.IN1
+i_Bi => xor_Bi.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|fpAdderControlPath|enARdFF_2:\stateRegloop:9:state_n
-i_resetBar => int_q.ACLR
-i_d => int_q.DATAIN
-i_enable => int_q.ENA
-i_clock => int_q.CLK
-o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+|GRS_Round|nBitAdderSubtractor:adder|oneBitAdderSubtractor:\loop_add:8:addrn
+i_CarryIn => carryFromBoth.IN0
+i_CarryIn => carryFromAi.IN0
+operationFlag => xor_Bi.IN0
+i_Ai => carryFromBoth.IN1
+i_Ai => carryFromAi.IN1
+i_Bi => xor_Bi.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|fpAdderControlPath|enARdFF_2:\stateRegloop:10:state_n
-i_resetBar => int_q.ACLR
-i_d => int_q.DATAIN
-i_enable => int_q.ENA
-i_clock => int_q.CLK
-o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|fpAdderControlPath|enARdFF_2:\stateRegloop:11:state_n
-i_resetBar => int_q.ACLR
-i_d => int_q.DATAIN
-i_enable => int_q.ENA
-i_clock => int_q.CLK
-o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|fpAdderControlPath|enARdFF_2:\stateRegloop:12:state_n
-i_resetBar => int_q.ACLR
-i_d => int_q.DATAIN
-i_enable => int_q.ENA
-i_clock => int_q.CLK
-o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
-o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+|GRS_Round|nBitAdderSubtractor:adder|oneBitAdderSubtractor:\loop_add:9:addrn
+i_CarryIn => carryFromBoth.IN0
+i_CarryIn => carryFromAi.IN0
+operationFlag => xor_Bi.IN0
+i_Ai => carryFromBoth.IN1
+i_Ai => carryFromAi.IN1
+i_Bi => xor_Bi.IN1
+o_Sum <= o_Sum.DB_MAX_OUTPUT_PORT_TYPE
+o_CarryOut <= o_CarryOut.DB_MAX_OUTPUT_PORT_TYPE
 
 

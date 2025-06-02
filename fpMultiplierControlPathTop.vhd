@@ -8,7 +8,6 @@ ENTITY fpMultiplierControlPathTop is
         ldExp1, ldExp2, ldMan1, ldMan2, ldSign1, ldSign2, ldManRes, ldExpRes: OUT STD_LOGIC; -- Load control signals
         shiftRManRes: OUT STD_LOGIC; -- Shift control signals
         roundManRes, incExpRes, startMult: OUT STD_LOGIC; -- Arithmetic control signals
-        greset: OUT STD_LOGIC;
         done: OUT STD_LOGIC); 
 END fpMultiplierControlPathTop;
 
@@ -35,7 +34,7 @@ BEGIN
         o_qBar => open);
 
     -- State registers
-    stateRegloop: FOR i IN 1 TO 6 GENERATE
+    stateRegloop: FOR i IN 1 TO 5 GENERATE
         state_n: enardFF_2 PORT MAP(
             i_resetBar => control_path_reset,
             i_d => state_in(i),
@@ -48,11 +47,10 @@ BEGIN
     -- State Input Signals
     state_in(0) <= reset;
     state_in(1) <= state_out(0) OR (state_out(1) AND (NOT multRdy));
-    state_in(2) <= state_out(1) AND multRdy;
-    state_in(3) <= state_out(2) AND manResMSB;
-    state_in(4) <= state_out(3) OR (state_out(2) AND (NOT manResMSB));
-    state_in(5) <= state_out(4) AND manResMSB;
-    state_in(6) <= state_out(4) AND (NOT manResMSB);
+    state_in(2) <= state_out(1) AND multRdy AND manResMSB;
+    state_in(3) <= state_out(2) OR (state_out(1) AND multRdy AND (NOT manResMSB));
+    state_in(4) <= state_out(3) AND manResMSB;
+    state_in(5) <= state_out(4) OR (state_out(3) AND (NOT manResMSB));
 
     control_path_reset <= NOT reset;
 
@@ -64,16 +62,14 @@ BEGIN
     ldSign1 <= state_out(0);
     ldSign2 <= state_out(0);
 
-    greset <= state_out(0);
-    done <= state_out(6) OR state_out(5);
+    startMult <= state_out(1);
+    ldExpRes <= state_out(1);
+    ldManRes <= state_out(1) OR state_out(3);
 
-    roundManRes <= state_out(4);
-    shiftRManRes <= state_out(3);
+    shiftRManRes <= state_out(2);
 
-    ldManRes <= state_out(2) OR state_out(4);
-    incExpRes <= state_out(3) OR state_out(5);
+    roundManRes <= state_out(3);
+    incExpRes <= state_out(2) OR state_out(4);
 
-
-
-
+    done <= state_out(5);
 end rtl;

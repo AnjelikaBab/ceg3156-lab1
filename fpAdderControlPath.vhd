@@ -4,11 +4,12 @@ USE ieee.std_logic_1164.ALL;
 ENTITY fpAdderControlPath is
     PORT(
         clk, reset: IN STD_LOGIC;
-        expEqual, exp1LtExp2, manResNeg, sign1, sign2, cOut1, cOut2, overflow, manResMSB, manResLSB : IN STD_LOGIC; -- Status signals
+        expEqual, exp1LtExp2, manResNeg, sign1, sign2, manResMSB, manResLSB : IN STD_LOGIC; -- Status signals
         loadExpA, loadExpB, loadMan1, loadMan2, loadSign1, loadSign2, loadManRes, loadExpRes: OUT STD_LOGIC; -- Load control signals
         shiftRMan1, shiftRMan2, resultShiftR, resultShiftL: OUT STD_LOGIC; -- Shift control signals
-        opOrder, subMantissas, subResult, selManRes, incExp1, incExp2, incManRes, incExpRes, decExpRes, overflowFlag: OUT STD_LOGIC; -- Arithmetic control signals
-        greset: OUT STD_LOGIC); 
+        opOrder, subMantissas, subResult, selManRes, incExp1, incExp2, incManRes, incExpRes, decExpRes: OUT STD_LOGIC; -- Arithmetic control signals
+        done: OUT STD_LOGIC -- Asserted when the operation is complete
+    ); 
 END fpAdderControlPath;
 
 ARCHITECTURE rtl OF fpAdderControlPath is
@@ -34,7 +35,7 @@ BEGIN
         o_qBar => open);
 
     -- State registers
-    stateRegloop: FOR i IN 1 TO 12 GENERATE
+    stateRegloop: FOR i IN 1 TO 11 GENERATE
         state_n: enardFF_2 PORT MAP(
             i_resetBar => control_path_reset,
             i_d => state_in(i),
@@ -44,22 +45,27 @@ BEGIN
             o_qBar => open);
     END GENERATE stateRegloop;
 
+    control_path_reset <= NOT reset;
+
     -- State Input Signals
     state_in(0) <= reset;
-    state_in(1) <= state_out(0) AND exp1LtExp2 AND (NOT expEqual);
-    state_in(2) <= state_out(0) AND (NOT exp1LtExp2) AND (NOT expEqual);
-    state_in(3) <= state_out(0) AND expEqual AND (sign1 XOR sign2) AND (NOT sign1);
-    state_in(4) <= state_out(0) AND expEqual AND (sign1 XOR sign2) AND sign1;
-    state_in(5) <= state_out(0) AND expEqual AND (NOT (sign1 XOR sign2));
-    state_in(6) <= state_out(5) AND cOut1;
-    state_in(7) <= (state_out(3) OR state_out(4)) AND overflow;
-    state_in(8) <= (state_out(3) OR state_out(4)) AND (NOT overflow) AND manResNeg;
-    state_in(9) <= (state_out(6) OR state_out(12) OR (state_out(5) AND (NOT cOut1))) AND manResLSB;
-    state_in(10) <= state_out(8) AND (NOT manResMSB);
-    state_in(11) <= state_out(9) AND cOut2;
-    state_in(12) <= (state_out(3) OR state_out(4)) AND (NOT manResNeg) AND manResMSB;
-
-    control_path_reset <= NOT reset;
+    state_in(1) <= exp1LtExp2 AND (NOT expEqual) AND (state_out(0) OR state_out(1) OR state_out(2));
+    state_in(2) <= (NOT exp1LtExp2) AND (NOT expEqual) AND (state_out(0) OR state_out(1) OR state_out(2));
+    state_in(3) <= expEqual AND (sign1 XOR sign2) AND (NOT sign1) AND (state_out(0) OR state_out(1) OR state_out(2));
+    state_in(4) <= expEqual AND (sign1 XOR sign2) AND sign1 AND (state_out(0) OR state_out(1) OR state_out(2));
+    state_in(5) <= expEqual AND (NOT (sign1 XOR sign2)) AND (state_out(0) OR state_out(1) OR state_out(2));
+    state_in(6) <= state_out(5) AND manResMSB;
+    state_in(7) <= (state_out(3) OR state_out(4)) AND manResNeg;
+    state_in(8) <= manResLSB AND 
+                   (state_out(6) OR (state_out(5) AND (NOT manResMSB)) OR
+                   (manResMSB AND (state_out(9) OR state_out(7) OR ((NOT manResNeg) AND (state_out(3) OR state_out(4))))));
+    state_in(9) <= NOT manResMSB AND (state_out(7) OR state_out(9) OR ((state_out(3) OR state_out(4)) AND (NOT manResNeg)));
+    state_in(10) <= state_out(8) AND manResMSB;
+    state_in(11) <= state_out(10) OR
+					(state_out(8) AND (NOT manResMSB)) OR 
+					((NOT manResLSB) AND 
+                    (state_out(6) OR (state_out(5) AND (NOT manResMSB)) OR 
+					(manResMSB AND (state_out(7) OR state_out(9) OR ((state_out(3) OR state_out(4)) AND (NOT manResNeg))))));
 
     -- Output Control Signals
     loadExpA  <= state_out(0);
@@ -69,8 +75,6 @@ BEGIN
     loadSign1 <= state_out(0);
     loadSign2 <= state_out(0);
 
-    greset <= state_out(0);
-
     shiftRMan1 <= state_out(1);
     incExp1 <= state_out(1);
     shiftRMan2 <= state_out(2) ;
@@ -78,19 +82,17 @@ BEGIN
     opOrder <= state_out(3);
 
     resultShiftR <= state_out(6);
-    overflowFlag <= state_out(7);
-    subResult <= state_out(8);
-    incManRes <= state_out(9);
-    resultShiftL <= state_out(10);
-    decExpRes <= state_out(10);
+    subResult <= state_out(7);
+    incManRes <= state_out(8);
+    resultShiftL <= state_out(9);
+    decExpRes <= state_out(9);
 
     subMantissas <= state_out(3) OR state_out(4);
-    subResult <= state_out(8);
-    loadManRes <= state_out(3) OR state_out(4) OR state_out(5) OR state_out(8) OR state_out(9);
-    selManRes <= state_out(8) OR state_out(9);
-    incExpRes <= state_out(6) OR state_out(11);
+    subResult <= state_out(7);
+    loadManRes <= state_out(3) OR state_out(4) OR state_out(5) OR state_out(7) OR state_out(8);
+    selManRes <= state_out(7) OR state_out(8);
+    incExpRes <= state_out(6) OR state_out(10);
     loadExpRes <= state_out(3) OR state_out(4) OR state_out(5);
 
-
-
+    done <= state_out(11);
 end rtl;

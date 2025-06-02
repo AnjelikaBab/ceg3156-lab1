@@ -1,0 +1,52 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY GRS_Round IS
+    PORT(
+        round_in: IN STD_LOGIC_VECTOR(18 downto 0); -- 19-bit input for rounding
+        round_out: OUT STD_LOGIC_VECTOR(17 downto 0); -- 18-bit output after rounding\
+        overflow: OUT STD_LOGIC -- Overflow flag
+    );
+END GRS_Round;
+
+ARCHITECTURE rtl OF GRS_Round IS
+    SIGNAL guard_bit, round_bit, sticky_bit: STD_LOGIC; -- Guard, round, and sticky bits
+    SIGNAL mux_1, mux_2: STD_LOGIC_VECTOR(9 downto 0); -- Mux output for rounding
+
+    -- Adder for rounding up
+    COMPONENT nBitAdderSubtractor
+        GENERIC (n : INTEGER := 4);
+        PORT(
+            i_Ai, i_Bi: IN STD_LOGIC_VECTOR(n-1 downto 0);
+            operationFlag: IN STD_LOGIC; -- 0 for addition, 1 for subtraction
+            o_CarryOut: OUT STD_LOGIC;
+            o_overflow: OUT STD_LOGIC;
+            o_Sum: OUT STD_LOGIC_VECTOR(n-1 downto 0)
+        );
+    END COMPONENT;
+
+BEGIN
+    -- Extracting the guard, round, and sticky bits from the input
+    guard_bit <= round_in(8);
+    round_bit <= round_in(7);
+    sticky_bit <= round_in(6) OR round_in(5) OR round_in(4) OR round_in(3) OR round_in(2) OR round_in(1) OR round_in(0);
+
+    -- Rounding logic: increment if GRS = 111, 110 or 101
+    -- If GRS = 100, make round_in(9) 0
+    -- accomplish through mux and adder
+    mux_1 <= "0000000000" when ((round_bit = '1') OR (sticky_bit = '1') OR (round_in(9) = '1')) else "0000000001";
+    mux_2 <= mux_1 when (guard_bit = '1') else "0000000000"; 
+
+    adder: nBitAdderSubtractor
+        GENERIC MAP (n => 10)
+        PORT MAP (
+            i_Ai => round_in(18 downto 9), -- 10 bits from the input
+            i_Bi => mux_2, -- Mux output for rounding
+            operationFlag => '0', -- Addition operation
+            o_CarryOut => overflow, 
+            o_overflow => open, 
+            o_Sum => round_out(17 downto 8) -- 10-bit output after rounding
+        );
+
+    round_out(7 downto 0) <= "00000000"; -- Lower 8 bits are set to 0
+end rtl;

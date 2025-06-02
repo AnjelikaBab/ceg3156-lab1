@@ -1,0 +1,156 @@
+library ieee;
+USE ieee.std_logic_1164.ALL;
+
+-- 9 bit multiplier datapath for unsigned multiplication
+ENTITY fpMultiplierDatapathMult IS
+    PORT(
+        clk, reset: IN STD_LOGIC; --active high reset
+        ldMultiplicand, ldMultiplier, ldProduct: IN STD_LOGIC; -- Load control signals
+        shiftRProduct, shiftRMultiplier: IN STD_LOGIC; -- Shift control signals
+        incCount: IN STD_LOGIC; -- Increment control signal
+        i_multiplicand, i_multiplier: IN STD_LOGIC_VECTOR(8 downto 0); -- 9-bit inputs
+        o_overflow: OUT STD_LOGIC;
+        lastIteration, multiplierLSB: OUT STD_LOGIC; -- Status signals for control path
+        o_product: OUT STD_LOGIC_VECTOR(17 downto 0) -- 18-bit output for product
+    );
+END fpMultiplierDatapathMult;
+
+ARCHITECTURE rtl OF fpMultiplierDatapathMult IS
+    SIGNAL multiplicand_reg_out, multiplier_reg_out: STD_LOGIC_VECTOR(8 downto 0);
+    SIGNAL product_reg_in, product_reg_out: STD_LOGIC_VECTOR(8 downto 0);
+    SIGNAL count: STD_LOGIC_VECTOR(2 downto 0);
+    SIGNAL product_shift_out: STD_LOGIC;
+    SIGNAL reset_n: STD_LOGIC;
+    SIGNAL adder_overflow, incrementer_overflow: STD_LOGIC;
+
+    --9 bit reg for multiplicand
+    COMPONENT nbitregister
+        GENERIC(
+            n: INTEGER := 8
+        );
+	PORT(
+		i_resetBar, i_load	: IN	STD_LOGIC;
+		i_clock			: IN	STD_LOGIC;
+		i_Value			: IN	STD_LOGIC_VECTOR(n-1 downto 0);
+		o_Value			: OUT	STD_LOGIC_VECTOR(n-1 downto 0)
+    );
+    END COMPONENT;
+
+    -- 9 bit shift register for multiplier and product
+    COMPONENT nBitShiftRegister
+        GENERIC(
+            n: INTEGER := 8
+        );
+        PORT(
+            i_resetBar, i_clock: IN STD_LOGIC;
+            i_load, i_shift_right, i_shift_left: IN STD_LOGIC;
+            serial_in: IN STD_LOGIC;
+            parallel_in: IN	STD_LOGIC_VECTOR(n-1 downto 0);
+            parallel_out: OUT STD_LOGIC_VECTOR(n-1 downto 0);
+            serial_out: OUT STD_LOGIC
+        );
+    END COMPONENT;
+
+    -- 3 bit counter for counting iterations
+    COMPONENT nBitIncrementer
+        GENERIC(
+            n: INTEGER := 3
+        );
+        PORT(
+            clk, reset, increment: IN STD_LOGIC;
+            overflow: OUT STD_LOGIC;
+            y: OUT STD_LOGIC_VECTOR(n-1 downto 0)
+        );
+    END COMPONENT;
+
+    -- 9 bit adder to compute product
+    COMPONENT nBitAdderSubtractor
+        GENERIC(
+            n: INTEGER := 4
+        );
+        PORT(
+            i_Ai, i_Bi: IN STD_LOGIC_VECTOR(n-1 downto 0);
+            operationFlag: IN STD_LOGIC;
+            o_CarryOut: OUT STD_LOGIC;
+            o_overflow: OUT STD_LOGIC;
+            o_Sum: OUT STD_LOGIC_VECTOR(n-1 downto 0)
+        );
+    END COMPONENT;
+
+BEGIN
+    -- Active low reset signal
+    reset_n <= not reset;
+
+    -- Multiplicand register
+    multiplicand_reg: nbitregister
+        GENERIC MAP(n => 9)
+        PORT MAP(
+            i_resetBar => reset_n,
+            i_load => ldMultiplicand,
+            i_clock => clk,
+            i_Value => i_multiplicand,
+            o_Value => multiplicand_reg_out
+        );
+
+    -- Multiplier shift register
+    multiplier_reg: nBitShiftRegister
+        GENERIC MAP(n => 9)
+        PORT MAP(
+            i_resetBar => reset_n,
+            i_clock => clk,
+            i_load => ldMultiplier,
+            i_shift_right => shiftRMultiplier,
+            i_shift_left => '0',
+            serial_in => product_shift_out, -- Serial input from product shift register
+            parallel_in => i_multiplier,
+            parallel_out => multiplier_reg_out,
+            serial_out => open
+        );
+
+    -- Product shift register
+    product_reg: nBitShiftRegister
+        GENERIC MAP(n => 9)
+        PORT MAP(
+            i_resetBar => reset_n,
+            i_clock => clk,
+            i_load => ldProduct,
+            i_shift_right => shiftRProduct,
+            i_shift_left => '0',
+            serial_in => '0',
+            parallel_in => product_reg_in,
+            parallel_out => product_reg_out,
+            serial_out => product_shift_out
+        );
+
+    -- Product adder for computing the new product value
+    product_adder: nBitAdderSubtractor
+        GENERIC MAP(n => 9)
+        PORT MAP(
+            i_Ai => product_reg_out,
+            i_Bi => multiplicand_reg_out, -- Add multiplicand to the product
+            operationFlag => '0', -- Addition operation
+            o_CarryOut => adder_overflow, -- Carry out represents overflow in unsigned addition
+            o_overflow => open, 
+            o_Sum => product_reg_in -- New product value to be loaded into the shift register
+        );
+
+    -- Incrementer for counting iterations
+    iteration_counter: nBitIncrementer
+        GENERIC MAP(n => 3)
+        PORT MAP(
+            clk => clk,
+            reset => reset,
+            increment => incCount, -- Increment on each clock cycle when required
+            overflow => incrementer_overflow,
+            y(2 downto 0) => count -- Output not used in this design, can be connected if needed
+        );
+
+    -- status signals for control path
+    multiplierLSB <= multiplier_reg_out(0); -- LSB of multiplier for control path
+    lastIteration <= count(2) AND count(1) AND count(0); -- Last iteration if all bits of count are 1
+
+    -- output drivers for top level
+    o_product <= product_reg_out & multiplier_reg_out; -- Concatenate product and multiplier LSB for 18-bit output
+    o_overflow <= adder_overflow OR incrementer_overflow; -- Overflow if either adder or incrementer overflows
+	 
+end rtl;
