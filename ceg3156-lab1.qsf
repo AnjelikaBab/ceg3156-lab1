@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone IV GX"
 set_global_assignment -name DEVICE EP4CGX110DF27C7
-set_global_assignment -name TOP_LEVEL_ENTITY fpAdderDataPath
+set_global_assignment -name TOP_LEVEL_ENTITY fpAdderTopLvl
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "15:06:26  JUNE 01, 2025"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
@@ -49,6 +49,7 @@ set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
 set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name VHDL_FILE fpAdderTopLvl.vhd
 set_global_assignment -name VHDL_FILE fpAdderDataPath.vhd
 set_global_assignment -name VHDL_FILE fpMultiplierTop.vhd
 set_global_assignment -name VHDL_FILE nBitIncrementingReg.vhd
