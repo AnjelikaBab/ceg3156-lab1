@@ -21,6 +21,7 @@ END fpMultiplierDatapath;
 ARCHITECTURE rtl OF fpMultiplierDatapath IS
     SIGNAL sign1_reg_out, sign2_reg_out: STD_LOGIC;
     SIGNAL exp1_reg_out, exp2_reg_out: STD_LOGIC_VECTOR(6 downto 0);
+    SIGNAL exp1_reg_out2, exp2_reg_out2: STD_LOGIC_VECTOR(7 downto 0);
     SIGNAL man1_reg_out, man2_reg_out: STD_LOGIC_VECTOR(7 downto 0);
     SIGNAL multiplier_in_1, multiplier_in_2: STD_LOGIC_VECTOR(8 downto 0); -- 9-bit inputs for multiplication
     SIGNAL manRes_reg_in, manRes_reg_out: STD_LOGIC_VECTOR(18 downto 0);
@@ -223,13 +224,15 @@ BEGIN
     o_manRes <= manRes_reg_out(16 downto 9); -- Use remove the bits before the radix and round away the last few bits
     manResMSB <= manRes_reg_in(18); -- MSB of mantissa result
 
+    exp1_reg_out2 <= '0' & exp1_reg_out; -- Extend exponent to 8 bits for addition
+    exp2_reg_out2 <= '0' & exp2_reg_out; -- Extend exponent to 8 bits for addition
 
     -- exponent result adders
     expRes_adder_1: nBitAdderSubtractor
         GENERIC MAP (n => 8)
         PORT MAP (
-            i_Ai => '0' & exp1_reg_out, -- Add sign bit
-            i_Bi => '0' & exp2_reg_out, -- Add sign bit
+            i_Ai => exp1_reg_out2, -- Add sign bit
+            i_Bi => exp2_reg_out2, -- Add sign bit
             operationFlag => '0', -- Addition operation
             o_CarryOut => open, -- Carry out not used
             o_overflow => overflow(2), -- Overflow for exponent addition

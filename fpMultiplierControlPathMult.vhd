@@ -12,7 +12,7 @@ ENTITY fpMultiplierControlPathMult is
 END fpMultiplierControlPathMult;
 
 ARCHITECTURE rtl OF fpMultiplierControlPathMult is
-    SIGNAL state_in, state_out: STD_LOGIC_VECTOR(3 downto 0);
+    SIGNAL state_in, state_out: STD_LOGIC_VECTOR(5 downto 0);
     SIGNAL control_path_reset: STD_LOGIC;
 
     COMPONENT enardFF_2
@@ -34,7 +34,7 @@ BEGIN
         o_qBar => open);
 
     -- State registers
-    stateRegloop: FOR i IN 1 TO 3 GENERATE
+    stateRegloop: FOR i IN 1 TO 5 GENERATE
         state_n: enardFF_2 PORT MAP(
             i_resetBar => control_path_reset,
             i_d => state_in(i),
@@ -46,11 +46,16 @@ BEGIN
 
     -- State Input Signals
     state_in(0) <= (state_out(0) AND (NOT startMult)) OR reset;
-    state_in(1) <= (state_out(0) AND startMult AND multiplierLSB) OR (state_out(2) AND (NOT lastIteration) AND multiplierLSB);
+    state_in(4) <= (state_out(0) AND startMult);
+
+    state_in(1) <= (state_out(4) AND multiplierLSB) OR (state_out(5) AND (NOT lastIteration) AND multiplierLSB);
+
     state_in(2) <= state_out(1) OR 
-                   (state_out(0) AND startMult AND (NOT multiplierLSB)) OR 
-                   (state_out(2) AND (NOT lastIteration) AND (NOT multiplierLSB));
-    state_in(3) <= state_out(2) AND lastIteration;
+                   (state_out(4) AND (NOT multiplierLSB)) OR 
+                   (state_out(5) AND (NOT lastIteration) AND (NOT multiplierLSB));
+    state_in(5) <= state_out(2);
+
+    state_in(3) <= state_out(5) AND lastIteration;
 
 
     control_path_reset <= NOT reset;

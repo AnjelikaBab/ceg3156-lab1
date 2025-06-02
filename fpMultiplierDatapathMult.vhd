@@ -18,7 +18,7 @@ END fpMultiplierDatapathMult;
 ARCHITECTURE rtl OF fpMultiplierDatapathMult IS
     SIGNAL multiplicand_reg_out, multiplier_reg_out: STD_LOGIC_VECTOR(8 downto 0);
     SIGNAL product_reg_in, product_reg_out: STD_LOGIC_VECTOR(8 downto 0);
-    SIGNAL count: STD_LOGIC_VECTOR(2 downto 0);
+    SIGNAL count: STD_LOGIC_VECTOR(3 downto 0);
     SIGNAL product_shift_out: STD_LOGIC;
     SIGNAL reset_n: STD_LOGIC;
     SIGNAL adder_overflow, incrementer_overflow: STD_LOGIC;
@@ -136,18 +136,18 @@ BEGIN
 
     -- Incrementer for counting iterations
     iteration_counter: nBitIncrementer
-        GENERIC MAP(n => 3)
+        GENERIC MAP(n => 4)
         PORT MAP(
             clk => clk,
             reset => reset,
             increment => incCount, -- Increment on each clock cycle when required
             overflow => incrementer_overflow,
-            y(2 downto 0) => count -- Output not used in this design, can be connected if needed
+            y => count -- Output not used in this design, can be connected if needed
         );
 
     -- status signals for control path
     multiplierLSB <= multiplier_reg_out(0); -- LSB of multiplier for control path
-    lastIteration <= count(2) AND count(1) AND count(0); -- Last iteration if all bits of count are 1
+    lastIteration <= count(3) AND count(0); -- Last iteration if it is 9
 
     -- output drivers for top level
     o_product <= product_reg_out & multiplier_reg_out; -- Concatenate product and multiplier LSB for 18-bit output

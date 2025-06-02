@@ -1,12 +1,12 @@
-Analysis & Synthesis Status : Successful - Mon Jun 02 11:26:34 2025
+Analysis & Synthesis Status : Successful - Mon Jun 02 12:28:09 2025
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : ceg3156-lab1
-Top-level Entity Name : fpAdderTopLvl
+Top-level Entity Name : fpMultiplierTop
 Family : Cyclone IV GX
-Total logic elements : 179
-    Total combinational functions : 174
-    Dedicated logic registers : 63
-Total registers : 63
+Total logic elements : 114
+    Total combinational functions : 63
+    Dedicated logic registers : 84
+Total registers : 84
 Total pins : 52
 Total virtual pins : 0
 Total memory bits : 0
