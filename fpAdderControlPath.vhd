@@ -13,7 +13,7 @@ ENTITY fpAdderControlPath is
 END fpAdderControlPath;
 
 ARCHITECTURE rtl OF fpAdderControlPath is
-    SIGNAL state_in, state_out: STD_LOGIC_VECTOR(12 downto 0);
+    SIGNAL state_in, state_out: STD_LOGIC_VECTOR(20 downto 0);
     SIGNAL control_path_reset: STD_LOGIC;
 
     COMPONENT enardFF_2
@@ -76,7 +76,7 @@ BEGIN
     state_in(7) <= state_out(14) AND manResNeg;
 
     state_in(8) <= manResLSB AND 
-                   ((state_out(16) OR (state_out(18) OR (state_out(14) AND (NOT manResNeg)) AND manResMSB)) OR 
+                   (((state_out(16) OR state_out(18) OR (state_out(14) AND (NOT manResNeg))) AND manResMSB) OR 
                    state_out(15) OR
                    (state_out(19) AND manResMSB));
 
@@ -86,8 +86,7 @@ BEGIN
 
 
     --Done state
-    state_in(20) <=((NOT manResLSB) AND 
-                   ((state_out(16) OR (state_out(18) OR (state_out(14) AND (NOT manResNeg)) AND manResMSB)) OR state_out(15) OR (state_out(19) AND manResMSB))) OR 
+    state_in(20) <= ((((state_out(16) OR state_out(18) OR (state_out(14) AND (NOT manResNeg))) AND manResMSB) OR state_out(15) OR (state_out(19) AND manResMSB)) AND (NOT manResLSB)) OR 
                    (state_out(17) AND (NOT manResMSB)) OR 
                    state_out(10);
     
