@@ -50,7 +50,7 @@ BEGIN
     state_in(1) <= state_out(0) OR (state_out(1) AND (NOT multRdy));
     state_in(2) <= state_out(1) AND multRdy;
     state_in(3) <= state_out(2) AND manResMSB;
-    state_in(4) <= state_out(2) AND (NOT manResMSB);
+    state_in(4) <= state_out(3) OR (state_out(2) AND (NOT manResMSB));
     state_in(5) <= state_out(4) AND manResMSB;
     state_in(6) <= state_out(4) AND (NOT manResMSB);
 
