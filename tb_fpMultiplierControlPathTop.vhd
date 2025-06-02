@@ -15,8 +15,7 @@ ARCHITECTURE behavior OF tb_fpMultiplierControlPathTop IS
             shiftRManRes: OUT STD_LOGIC;
             roundManRes, incExpRes, startMult: OUT STD_LOGIC;
             greset: OUT STD_LOGIC;
-            done: OUT STD_LOGIC
-        );
+            done: OUT STD_LOGIC);
     END COMPONENT;
 
     SIGNAL clk         : STD_LOGIC := '0';

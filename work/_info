@@ -15,7 +15,7 @@ L31
 VW45mLHZkgINE^UQaXmP5[3
 Z6 OV;C;10.1d;51
 32
-Z7 !s108 1748809778.421000
+Z7 !s108 1748835655.544000
 Z8 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/enardFF_2.vhd|
 Z9 !s107 Z:/Git/ceg3156-lab1/enardFF_2.vhd|
 Z10 o-work work -2002 -explicit -O0
@@ -39,7 +39,7 @@ R11
 !s100 n`NKG5gX7V@?eV@4dAU663
 !i10b 1
 Efpaddercontrolpath
-Z12 w1748815776
+Z12 w1748817123
 R1
 R2
 R3
@@ -47,23 +47,23 @@ Z13 8Z:/Git/ceg3156-lab1/fpAdderControlPath.vhd
 Z14 FZ:/Git/ceg3156-lab1/fpAdderControlPath.vhd
 l0
 L4
-VNVcj4fNP=GPbKDQnT3iVe1
+V7BMQ8zX81b`eiQ:bQ]Z:<3
 R6
 32
-Z15 !s108 1748816203.596000
+Z15 !s108 1748835686.054000
 Z16 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/fpAdderControlPath.vhd|
 Z17 !s107 Z:/Git/ceg3156-lab1/fpAdderControlPath.vhd|
 R10
 R11
-!s100 I7JJ`BbZ[0;__:I`Flm3G3
+!s100 ]_FW[T=T1BO=kTRbCk_6D0
 !i10b 1
 Artl
 R1
 R2
-DEx4 work 18 fpaddercontrolpath 0 22 NVcj4fNP=GPbKDQnT3iVe1
+DEx4 work 18 fpaddercontrolpath 0 22 7BMQ8zX81b`eiQ:bQ]Z:<3
 l27
 L14
-V3];J_X4g0f3?GnlHUP03=0
+VW^4?j1Xee_X<k_>LS@]Ch3
 R6
 32
 R15
@@ -71,23 +71,93 @@ R16
 R17
 R10
 R11
-!s100 <6XbHP1ED2z^UB8I3kA5X3
+!s100 Z9Bl5d?dUke@a<=fYnl;h2
 !i10b 1
-Emux21
-Z18 w1748108411
+Efpmultipliercontrolpathmult
+Z18 w1748835580
 R1
 R2
 R3
-Z19 8Z:/Git/ceg3156-lab1/mux21.vhd
-Z20 FZ:/Git/ceg3156-lab1/mux21.vhd
+Z19 8Z:/Git/ceg3156-lab1/fpMultiplierControlPathMult.vhd
+Z20 FZ:/Git/ceg3156-lab1/fpMultiplierControlPathMult.vhd
+l0
+L4
+VSc2gF0MaN7^9`]7_0:j952
+R6
+32
+Z21 !s108 1748835889.290000
+Z22 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/fpMultiplierControlPathMult.vhd|
+Z23 !s107 Z:/Git/ceg3156-lab1/fpMultiplierControlPathMult.vhd|
+R10
+R11
+!s100 ha0nk77]453AN@X@d;Z1b0
+!i10b 1
+Artl
+R1
+R2
+DEx4 work 27 fpmultipliercontrolpathmult 0 22 Sc2gF0MaN7^9`]7_0:j952
+l27
+L14
+VQocQA4lgK8JXVm[0Q4di30
+R6
+32
+R21
+R22
+R23
+R10
+R11
+!s100 a]_X3oINH8`CFO[6o5gRY1
+!i10b 1
+Efpmultipliercontrolpathtop
+Z24 w1748834443
+R1
+R2
+R3
+Z25 8Z:/Git/ceg3156-lab1/fpMultiplierControlPathTop.vhd
+Z26 FZ:/Git/ceg3156-lab1/fpMultiplierControlPathTop.vhd
+l0
+L4
+VTYaVKUBcL6H6o35j4ligg1
+R6
+32
+Z27 !s108 1748835855.376000
+Z28 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/fpMultiplierControlPathTop.vhd|
+Z29 !s107 Z:/Git/ceg3156-lab1/fpMultiplierControlPathTop.vhd|
+R10
+R11
+!s100 ;KKjk]^dmdFa6>84NY28_2
+!i10b 1
+Artl
+R1
+R2
+DEx4 work 26 fpmultipliercontrolpathtop 0 22 TYaVKUBcL6H6o35j4ligg1
+l28
+L15
+VKSiQNidJ<@o?AKbBO]zSe3
+R6
+32
+R27
+R28
+R29
+R10
+R11
+!s100 _7KZJcoCHJJBj;;l`81G?2
+!i10b 1
+Emux21
+Z30 w1748108411
+R1
+R2
+R3
+Z31 8Z:/Git/ceg3156-lab1/mux21.vhd
+Z32 FZ:/Git/ceg3156-lab1/mux21.vhd
 l0
 L4
 V`_igd[REQNUc04FG>?NJQ2
 R6
 32
-Z21 !s108 1748809844.861000
-Z22 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/mux21.vhd|
-Z23 !s107 Z:/Git/ceg3156-lab1/mux21.vhd|
+Z33 !s108 1748835717.235000
+Z34 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/mux21.vhd|
+Z35 !s107 Z:/Git/ceg3156-lab1/mux21.vhd|
 R10
 R11
 !s100 4@l=NcFaJAdLh9V`Xn?PI2
@@ -101,28 +171,28 @@ L9
 VEN2h5FP5n<Ga2d>CI>C1I3
 R6
 32
-R21
-R22
-R23
+R33
+R34
+R35
 R10
 R11
 !s100 S9M;8MM_kWnGB]DhWJF4@1
 !i10b 1
 Eshiftleft1
-Z24 w1748108413
+Z36 w1748108413
 R1
 R2
 R3
-Z25 8Z:/Git/ceg3156-lab1/shiftleft1.vhd
-Z26 FZ:/Git/ceg3156-lab1/shiftleft1.vhd
+Z37 8Z:/Git/ceg3156-lab1/shiftleft1.vhd
+Z38 FZ:/Git/ceg3156-lab1/shiftleft1.vhd
 l0
 L4
 VVfJUIUgRkE[I7?LU?e@2i0
 R6
 32
-Z27 !s108 1748809878.237000
-Z28 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/shiftleft1.vhd|
-Z29 !s107 Z:/Git/ceg3156-lab1/shiftleft1.vhd|
+Z39 !s108 1748835753.880000
+Z40 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/shiftleft1.vhd|
+Z41 !s107 Z:/Git/ceg3156-lab1/shiftleft1.vhd|
 R10
 R11
 !s100 fh2XLSG1__JMA2A[]DIVE0
@@ -136,28 +206,28 @@ L11
 V_Uc>iSnKaZ3CY9I:Z5^;e1
 R6
 32
-R27
-R28
-R29
+R39
+R40
+R41
 R10
 R11
 !s100 KWQK]6l>:BUn=gnz4R]Hd3
 !i10b 1
 Eshiftright1
-Z30 w1748108417
+Z42 w1748108417
 R1
 R2
 R3
-Z31 8Z:/Git/ceg3156-lab1/shiftright1.vhd
-Z32 FZ:/Git/ceg3156-lab1/shiftright1.vhd
+Z43 8Z:/Git/ceg3156-lab1/shiftright1.vhd
+Z44 FZ:/Git/ceg3156-lab1/shiftright1.vhd
 l0
 L4
 V5JYBNQ<ST?z9c2cAO`iml0
 R6
 32
-Z33 !s108 1748809909.766000
-Z34 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/shiftright1.vhd|
-Z35 !s107 Z:/Git/ceg3156-lab1/shiftright1.vhd|
+Z45 !s108 1748835792.072000
+Z46 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/shiftright1.vhd|
+Z47 !s107 Z:/Git/ceg3156-lab1/shiftright1.vhd|
 R10
 R11
 !s100 kcbMnc]A]Pmi`7k>bBS5>0
@@ -171,47 +241,86 @@ L11
 VSZU=T00PNgVYoY9cEBib>3
 R6
 32
-R33
-R34
-R35
+R45
+R46
+R47
 R10
 R11
 !s100 S`kRXX833W<=VALmcEzCL0
 !i10b 1
 Etb_fpaddercontrolpath
-Z36 w1748816102
-Z37 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z48 w1748817142
+Z49 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
 R1
 R2
 R3
-Z38 8Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd
-Z39 FZ:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd
+Z50 8Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd
+Z51 FZ:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd
 l0
 L6
 V8_^67SW8IQn1V5@Wzcd1R1
-!s100 _K>f86Qfz8QSeWdg22`2Q3
 R6
 32
-!i10b 1
-Z40 !s108 1748816235.017000
-Z41 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd|
-Z42 !s107 Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd|
+Z52 !s108 1748835822.433000
+Z53 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd|
+Z54 !s107 Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd|
 R10
 R11
+!s100 _K>f86Qfz8QSeWdg22`2Q3
+!i10b 1
 Abehavior
-R37
+R49
 R1
 R2
-Z43 DEx4 work 21 tb_fpaddercontrolpath 0 22 8_^67SW8IQn1V5@Wzcd1R1
-l46
+DEx4 work 21 tb_fpaddercontrolpath 0 22 8_^67SW8IQn1V5@Wzcd1R1
+l47
 L9
-VSGZczWZcCVWAOUN`hoCkQ2
-!s100 ia:bY;SIQQFdzMI5nGoLT1
+V<=z=0h>c=4bERZfP:Il>Y3
+R6
+32
+R52
+R53
+R54
+R10
+R11
+!s100 e46zF][]0F19]NNYNh3R53
+!i10b 1
+Etb_fpmultipliercontrolpathmult
+w1748833122
+R1
+R2
+R3
+8Z:/Git/ceg3156-lab1/tb_fpMultiplierControlPathMult.vhd
+FZ:/Git/ceg3156-lab1/tb_fpMultiplierControlPathMult.vhd
+l0
+L4
+VE0UBVCK^E1fZfiQV^0J?11
+R6
+32
+R10
+R11
+!s100 fnEzg?5OTo7FbGF3PT==z1
+!i10b 1
+!s108 1748835921.061000
+!s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/tb_fpMultiplierControlPathMult.vhd|
+!s107 Z:/Git/ceg3156-lab1/tb_fpMultiplierControlPathMult.vhd|
+Etb_fpmultipliercontrolpathtop
+w1748834432
+R49
+R1
+R2
+R3
+8Z:/Git/ceg3156-lab1/tb_fpMultiplierControlPathTop.vhd
+FZ:/Git/ceg3156-lab1/tb_fpMultiplierControlPathTop.vhd
+l0
+L5
+V70C3hK:z:cLZJ;Gh?eI][3
+!s100 eh8BhKj^Fo44`gNlXQ4CA3
 R6
 32
 !i10b 1
-R40
-R41
-R42
+!s108 1748835945.526000
+!s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/tb_fpMultiplierControlPathTop.vhd|
+!s107 Z:/Git/ceg3156-lab1/tb_fpMultiplierControlPathTop.vhd|
 R10
 R11

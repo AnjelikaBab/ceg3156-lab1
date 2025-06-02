@@ -8,7 +8,7 @@ ENTITY fpMultiplierControlPathTop is
         ldExp1, ldExp2, ldMan1, ldMan2, ldSign1, ldSign2, ldManRes, ldExpRes: OUT STD_LOGIC; -- Load control signals
         shiftRManRes: OUT STD_LOGIC; -- Shift control signals
         roundManRes, incExpRes, startMult: OUT STD_LOGIC; -- Arithmetic control signals
-        greset: OUT STD_LOGIC
+        greset: OUT STD_LOGIC;
         done: OUT STD_LOGIC); 
 END fpMultiplierControlPathTop;
 
@@ -65,7 +65,7 @@ BEGIN
     ldSign2 <= state_out(0);
 
     greset <= state_out(0);
-    done <= state_out(6) OR <= state_out(5);
+    done <= state_out(6) OR state_out(5);
 
     roundManRes <= state_out(4);
     shiftRManRes <= state_out(3);

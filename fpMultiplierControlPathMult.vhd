@@ -47,7 +47,7 @@ BEGIN
     -- State Input Signals
     state_in(0) <= (NOT startMult) OR reset;
     state_in(1) <= (state_out(0) AND startMult AND multiplierLSB) OR (state_out(2) AND (NOT countEq8) AND multiplierLSB);
-    state_in(2) <= state_out(1) OR (state_out(0) AND startMult AND (NOT multiplierLSB)) OR (state_out(2) AND (NOT countEq8) AND (NOT multiplierLSB));;
+    state_in(2) <= state_out(1) OR (state_out(0) AND startMult AND (NOT multiplierLSB)) OR (state_out(2) AND (NOT countEq8) AND (NOT multiplierLSB));
     state_in(3) <= state_out(2) AND countEq8;
 
 
@@ -64,6 +64,6 @@ BEGIN
     shiftRProduct <= state_out(2);
     incCount <= state_out(2);
 
-    multRdy <= state_out(3)
+    multRdy <= state_out(3);
 
 end rtl;
