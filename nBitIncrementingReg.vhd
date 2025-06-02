@@ -1,19 +1,20 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 
-ENTITY nBitIncrementer IS
+ENTITY nBitIncrementingReg IS
     GENERIC (n : INTEGER := 3);
     PORT ( clk, reset: IN STD_LOGIC;
             load, increment: IN STD_LOGIC; -- load and increment control signals
             loadBits: IN STD_LOGIC_VECTOR(n-1 downto 0); -- bits to load when load is high
             overflow: OUT STD_LOGIC;
             o_out: OUT STD_LOGIC_VECTOR(n-1 downto 0) ) ;
-END nBitIncrementer ;
+END nBitIncrementingReg;
 
-ARCHITECTURE rtl OF nBitIncrementer is
-    SIGNAL adder_out, int_reg_out: STD_LOGIC_VECTOR(n-1 downto 0);
+ARCHITECTURE rtl OF nBitIncrementingReg is
+    SIGNAL adder_out, int_reg_out, int_reg_in: STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL incrementBits: STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL int_clear: STD_LOGIC;
+    SIGNAL reg_load: STD_LOGIC;
 
     COMPONENT nBitAdderSubtractor
         GENERIC (n : INTEGER := 3);
@@ -40,13 +41,14 @@ BEGIN
 
     reg: nBitRegister
         GENERIC MAP (n => n)
-        PORT MAP (i_resetBar => int_clear, i_load => increment, i_clock => clk, i_Value => adder_out, o_Value => int_reg_out);
+        PORT MAP (i_resetBar => int_clear, i_load => reg_load, i_clock => clk, i_Value => int_reg_in, o_Value => int_reg_out);
 
+    reg_load <= load OR increment; -- Load if load is high or increment is requested
     
-	 incrementBits <= (n-1 downto 1 => '0') & '1';
-	 int_clear <= not reset;
+    int_reg_in <= loadBits when load = '1' else adder_out; -- Load bits if load is high, else use adder output
+    incrementBits <= (n-1 downto 1 => '0') & '1';
+    int_clear <= not reset;
 
     -- Output Driver
-    y <= int_reg_out;
-
+    o_out <= int_reg_out;
 END rtl;

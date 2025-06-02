@@ -3,7 +3,7 @@ USE ieee.std_logic_1164.all;
 
 ENTITY nBitIncrementer IS
     GENERIC (n : INTEGER := 3);
-    PORT ( clk, reset, increment: IN STD_LOGIC;
+    PORT ( clk, reset, increment: IN STD_LOGIC; --active high reset and increment signals
             overflow: OUT STD_LOGIC;
             y: OUT STD_LOGIC_VECTOR(n-1 downto 0) ) ;
 END nBitIncrementer ;

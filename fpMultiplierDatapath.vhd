@@ -26,10 +26,20 @@ ARCHITECTURE rtl OF fpMultiplierDatapath IS
     SIGNAL manRes_reg_in, manRes_reg_out: STD_LOGIC_VECTOR(18 downto 0);
     SIGNAL manRes_mux_out, rounded_manRes, man_product: STD_LOGIC_VECTOR(17 downto 0);
     SIGNAL expRes_adder_1_out, expRes_adder_2_out: STD_LOGIC_VECTOR(7 downto 0); -- extra bit to keep track of sign
-    SIGNAL overflow: STD_LOGIC_VECTOR(3 downto 0); -- Overflow signals for various components
+    SIGNAL overflow: STD_LOGIC_VECTOR(4 downto 0); -- Overflow signals for various components
     SIGNAL reset_n: STD_LOGIC; -- Active low reset signal
 
-    -- stores input signs, exponents, mantissa
+    -- stores input signs
+    COMPONENT enARdFF_2
+        PORT(
+            i_resetBar	: IN	STD_LOGIC;
+            i_d		: IN	STD_LOGIC;
+            i_enable	: IN	STD_LOGIC;
+            i_clock		: IN	STD_LOGIC;
+            o_q, o_qBar	: OUT	STD_LOGIC);
+    END COMPONENT;
+
+    -- stores input exponents, mantissa
     COMPONENT nbitregister
         GENERIC(
             n: INTEGER := 8
@@ -58,15 +68,13 @@ ARCHITECTURE rtl OF fpMultiplierDatapath IS
     END COMPONENT;
 
     -- stores and increments expRes
-    COMPONENT nBitIncrementer
-        GENERIC(
-            n: INTEGER := 3
-        );
-        PORT(
-            clk, reset, increment: IN STD_LOGIC;
-            overflow: OUT STD_LOGIC;
-            y: OUT STD_LOGIC_VECTOR(n-1 downto 0)
-        );
+    COMPONENT nBitIncrementingReg IS
+        GENERIC (n : INTEGER := 3);
+        PORT ( clk, reset: IN STD_LOGIC;
+                load, increment: IN STD_LOGIC; -- load and increment control signals
+                loadBits: IN STD_LOGIC_VECTOR(n-1 downto 0); -- bits to load when load is high
+                overflow: OUT STD_LOGIC;
+                o_out: OUT STD_LOGIC_VECTOR(n-1 downto 0) ) ;
     END COMPONENT;
 
     -- to compute result exponent
@@ -87,11 +95,10 @@ ARCHITECTURE rtl OF fpMultiplierDatapath IS
     COMPONENT fpMultiplierMultTop
         PORT(
             clk, reset: IN STD_LOGIC; --active high reset
-            startMult: IN STD_LOGIC; -- Start signal for multiplication
+            startMult: IN STD_LOGIC; -- Start multiplication signal
             i_multiplicand, i_multiplier: IN STD_LOGIC_VECTOR(8 downto 0); -- 9-bit inputs
-            o_overflow: OUT STD_LOGIC; -- Overflow flag
             multRdy: OUT STD_LOGIC; -- Ready signal for multiplication
-            lastIteration, multiplierLSB: OUT STD_LOGIC; -- Status signals for control path
+            overflow: OUT STD_LOGIC; -- Overflow signal
             o_product: OUT STD_LOGIC_VECTOR(17 downto 0) -- 18-bit output for product
         );
     END COMPONENT;
@@ -109,24 +116,24 @@ BEGIN
     reset_n <= NOT reset; -- Active low reset signal
 
     -- Instantiate registers for sign, exponent, and mantissa inputs
-    sign1_reg: nbitregister
-        GENERIC MAP (n => 1)
+    sign1_ff: enARdFF_2
         PORT MAP (
             i_resetBar => reset_n,
-            i_load => ldSign1,
+            i_d => i_sign1,
+            i_enable => ldSign1,
             i_clock => clk,
-            i_Value => i_sign1,
-            o_Value => sign1_reg_out
+            o_q => sign1_reg_out,
+            o_qBar => open
         );
 
-    sign2_reg: nbitregister
-        GENERIC MAP (n => 1)
+    sign2_ff: enARdFF_2
         PORT MAP (
             i_resetBar => reset_n,
-            i_load => ldSign2,
+            i_d => i_sign2,
+            i_enable => ldSign2,
             i_clock => clk,
-            i_Value => i_sign2,
-            o_Value => sign2_reg_out
+            o_q => sign2_reg_out,
+            o_qBar => open
         );
 
     exp1_reg: nbitregister
@@ -181,7 +188,7 @@ BEGIN
             startMult => startMult,
             i_multiplicand => multiplier_in_1,
             i_multiplier => multiplier_in_2,
-            o_overflow => overflow(0), -- Overflow for multiplication
+            overflow => overflow(0), -- Overflow for multiplication
             multRdy => multRdy,
             o_product => man_product
         );
@@ -213,8 +220,8 @@ BEGIN
         );
 
     -- output mantissa and status signal
-    o_manRes <= rounded_manRes(16 downto 9); -- Use remove the bits before the radix and round away the last few bits
-    manResMSB <= rounded_manRes(18); -- MSB of mantissa result
+    o_manRes <= manRes_reg_out(16 downto 9); -- Use remove the bits before the radix and round away the last few bits
+    manResMSB <= manRes_reg_in(18); -- MSB of mantissa result
 
 
     -- exponent result adders
@@ -241,20 +248,21 @@ BEGIN
         );
 
     -- Exponent result register
-    expRes_reg: nBitIncrementer
+    exp_res_reg: nBitIncrementingReg
         GENERIC MAP (n => 7)
         PORT MAP (
             clk => clk,
-            reset => reset_n,
-            increment => incExpRes(expRes_adder_2_out(6 downto 0)), -- Increment signal
-            overflow => overflow(4), -- Overflow not used
-            y => o_expRes -- Output exponent
+            reset => reset,
+            load => ldExpRes,
+            increment => incExpRes, -- Increment if needed
+            loadBits => expRes_adder_2_out(6 downto 0), -- Load exponent result
+            overflow => overflow(4), -- Overflow for exponent result
+            o_out => o_expRes -- Output exponent
         );
 
     -- Output sign result
     o_signRes <= sign1_reg_out XOR sign2_reg_out; -- Sign of the result is XOR of input signs
     -- Output overflow signal
     -- Condition: overflow occurs if any of the adders or if exponent result becomes negative
-    o_overflow <= overflow(0) OR overflow(1) OR overflow(2) OR overflow(3) OR expRes_adder_2_out(7);  
-
+    o_overflow <= overflow(0) OR overflow(1) OR overflow(2) OR overflow(3) OR overflow(4) OR expRes_adder_2_out(7);  
 end rtl;
