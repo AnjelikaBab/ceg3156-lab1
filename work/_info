@@ -39,7 +39,7 @@ R11
 !s100 n`NKG5gX7V@?eV@4dAU663
 !i10b 1
 Efpaddercontrolpath
-Z12 w1748810032
+Z12 w1748815776
 R1
 R2
 R3
@@ -47,24 +47,23 @@ Z13 8Z:/Git/ceg3156-lab1/fpAdderControlPath.vhd
 Z14 FZ:/Git/ceg3156-lab1/fpAdderControlPath.vhd
 l0
 L4
-V7BMQ8zX81b`eiQ:bQ]Z:<3
+VNVcj4fNP=GPbKDQnT3iVe1
 R6
 32
-Z15 !s108 1748810070.414000
+Z15 !s108 1748816203.596000
 Z16 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/fpAdderControlPath.vhd|
 Z17 !s107 Z:/Git/ceg3156-lab1/fpAdderControlPath.vhd|
 R10
 R11
-!s100 ]_FW[T=T1BO=kTRbCk_6D0
+!s100 I7JJ`BbZ[0;__:I`Flm3G3
 !i10b 1
 Artl
 R1
 R2
-DEx4 work 18 fpaddercontrolpath 0 22 7BMQ8zX81b`eiQ:bQ]Z:<3
+DEx4 work 18 fpaddercontrolpath 0 22 NVcj4fNP=GPbKDQnT3iVe1
 l27
 L14
-VW^4?j1Xee_X<k_>LS@]Ch3
-!s100 Z9Bl5d?dUke@a<=fYnl;h2
+V3];J_X4g0f3?GnlHUP03=0
 R6
 32
 R15
@@ -72,6 +71,7 @@ R16
 R17
 R10
 R11
+!s100 <6XbHP1ED2z^UB8I3kA5X3
 !i10b 1
 Emux21
 Z18 w1748108411
@@ -179,7 +179,7 @@ R11
 !s100 S`kRXX833W<=VALmcEzCL0
 !i10b 1
 Etb_fpaddercontrolpath
-Z36 w1748810050
+Z36 w1748816102
 Z37 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
 R1
 R2
@@ -193,7 +193,7 @@ V8_^67SW8IQn1V5@Wzcd1R1
 R6
 32
 !i10b 1
-Z40 !s108 1748810102.825000
+Z40 !s108 1748816235.017000
 Z41 !s90 -reportprogress|300|-work|work|-2002|-explicit|Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd|
 Z42 !s107 Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd|
 R10
@@ -202,11 +202,11 @@ Abehavior
 R37
 R1
 R2
-DEx4 work 21 tb_fpaddercontrolpath 0 22 8_^67SW8IQn1V5@Wzcd1R1
-l47
+Z43 DEx4 work 21 tb_fpaddercontrolpath 0 22 8_^67SW8IQn1V5@Wzcd1R1
+l46
 L9
-V<=z=0h>c=4bERZfP:Il>Y3
-!s100 e46zF][]0F19]NNYNh3R53
+VSGZczWZcCVWAOUN`hoCkQ2
+!s100 ia:bY;SIQQFdzMI5nGoLT1
 R6
 32
 !i10b 1

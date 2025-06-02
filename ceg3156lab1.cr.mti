@@ -1,17 +1,4 @@
-Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd {0 {vcom -work work -2002 -explicit Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd
-** Error: Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd(173): VHDL Compiler exiting
-Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity tb_fpAdderControlPath
--- Compiling architecture behavior of tb_fpAdderControlPath
-** Error: Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd(58): (vcom-1484) Unknown formal identifier "cOut1".
-
-** Error: Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd(173): VHDL Compiler exiting
-
-} {2.0 3.0 10.0 11.0 12.0 13.0} {}} Z:/Git/ceg3156-lab1/shiftright1.vhd {1 {vcom -work work -2002 -explicit Z:/Git/ceg3156-lab1/shiftright1.vhd
+Z:/Git/ceg3156-lab1/shiftright1.vhd {1 {vcom -work work -2002 -explicit Z:/Git/ceg3156-lab1/shiftright1.vhd
 Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
 -- Loading package STANDARD
 -- Loading package TEXTIO

@@ -16,3 +16,109 @@
 # Compile of fpAdderControlPath.vhd was successful.
 # Compile of tb_fpAdderControlPath.vhd was successful.
 # 2 compiles, 0 failed with no errors. 
+vsim -gui work.tb_fpaddercontrolpath
+# vsim -gui work.tb_fpaddercontrolpath 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.tb_fpaddercontrolpath(behavior)
+# Loading work.fpaddercontrolpath(rtl)
+# Loading work.enardff_2(rtl)
+add wave -position insertpoint  \
+sim:/tb_fpaddercontrolpath/clk \
+sim:/tb_fpaddercontrolpath/reset \
+sim:/tb_fpaddercontrolpath/expEqual \
+sim:/tb_fpaddercontrolpath/exp1LtExp2 \
+sim:/tb_fpaddercontrolpath/manResNeg \
+sim:/tb_fpaddercontrolpath/sign1 \
+sim:/tb_fpaddercontrolpath/sign2 \
+sim:/tb_fpaddercontrolpath/cOut1 \
+sim:/tb_fpaddercontrolpath/cOut2 \
+sim:/tb_fpaddercontrolpath/overflow \
+sim:/tb_fpaddercontrolpath/manResMSB \
+sim:/tb_fpaddercontrolpath/manResLSB \
+sim:/tb_fpaddercontrolpath/loadExpA \
+sim:/tb_fpaddercontrolpath/loadExpB \
+sim:/tb_fpaddercontrolpath/loadMan1 \
+sim:/tb_fpaddercontrolpath/loadMan2 \
+sim:/tb_fpaddercontrolpath/loadSign1 \
+sim:/tb_fpaddercontrolpath/loadSign2 \
+sim:/tb_fpaddercontrolpath/loadManRes \
+sim:/tb_fpaddercontrolpath/loadExpRes \
+sim:/tb_fpaddercontrolpath/shiftRMan1 \
+sim:/tb_fpaddercontrolpath/shiftRMan2 \
+sim:/tb_fpaddercontrolpath/resultShiftR \
+sim:/tb_fpaddercontrolpath/resultShiftL \
+sim:/tb_fpaddercontrolpath/opOrder \
+sim:/tb_fpaddercontrolpath/subMantissas \
+sim:/tb_fpaddercontrolpath/subResult \
+sim:/tb_fpaddercontrolpath/selManRes \
+sim:/tb_fpaddercontrolpath/incExp1 \
+sim:/tb_fpaddercontrolpath/incExp2 \
+sim:/tb_fpaddercontrolpath/incManRes \
+sim:/tb_fpaddercontrolpath/incExpRes \
+sim:/tb_fpaddercontrolpath/decExpRes \
+sim:/tb_fpaddercontrolpath/overflowFlag \
+sim:/tb_fpaddercontrolpath/greset
+run
+run
+# ** Note: Calling 'stop' - simulation complete
+#    Time: 180 ns  Iteration: 0  Instance: /tb_fpaddercontrolpath
+# ** Failure: End of simulation
+#    Time: 180 ns  Iteration: 0  Process: /tb_fpaddercontrolpath/stim_proc File: Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd
+# Break in Process stim_proc at Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd line 170
+restart
+# Compile of fpAdderControlPath.vhd was successful.
+# Compile of tb_fpAdderControlPath.vhd was successful.
+# 2 compiles, 0 failed with no errors. 
+vsim -gui work.tb_fpaddercontrolpath
+# vsim -gui work.tb_fpaddercontrolpath 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.tb_fpaddercontrolpath(behavior)
+# Loading work.fpaddercontrolpath(rtl)
+# Loading work.enardff_2(rtl)
+add wave -position insertpoint  \
+sim:/tb_fpaddercontrolpath/clk \
+sim:/tb_fpaddercontrolpath/reset \
+sim:/tb_fpaddercontrolpath/expEqual \
+sim:/tb_fpaddercontrolpath/exp1LtExp2 \
+sim:/tb_fpaddercontrolpath/manResNeg \
+sim:/tb_fpaddercontrolpath/sign1 \
+sim:/tb_fpaddercontrolpath/sign2 \
+sim:/tb_fpaddercontrolpath/cOut \
+sim:/tb_fpaddercontrolpath/overflow \
+sim:/tb_fpaddercontrolpath/manResMSB \
+sim:/tb_fpaddercontrolpath/manResLSB \
+sim:/tb_fpaddercontrolpath/loadExpA \
+sim:/tb_fpaddercontrolpath/loadExpB \
+sim:/tb_fpaddercontrolpath/loadMan1 \
+sim:/tb_fpaddercontrolpath/loadMan2 \
+sim:/tb_fpaddercontrolpath/loadSign1 \
+sim:/tb_fpaddercontrolpath/loadSign2 \
+sim:/tb_fpaddercontrolpath/loadManRes \
+sim:/tb_fpaddercontrolpath/loadExpRes \
+sim:/tb_fpaddercontrolpath/shiftRMan1 \
+sim:/tb_fpaddercontrolpath/shiftRMan2 \
+sim:/tb_fpaddercontrolpath/resultShiftR \
+sim:/tb_fpaddercontrolpath/resultShiftL \
+sim:/tb_fpaddercontrolpath/opOrder \
+sim:/tb_fpaddercontrolpath/subMantissas \
+sim:/tb_fpaddercontrolpath/subResult \
+sim:/tb_fpaddercontrolpath/selManRes \
+sim:/tb_fpaddercontrolpath/incExp1 \
+sim:/tb_fpaddercontrolpath/incExp2 \
+sim:/tb_fpaddercontrolpath/incManRes \
+sim:/tb_fpaddercontrolpath/incExpRes \
+sim:/tb_fpaddercontrolpath/decExpRes \
+sim:/tb_fpaddercontrolpath/overflowFlag \
+sim:/tb_fpaddercontrolpath/greset
+run
+# ** Note: Calling 'stop' - simulation complete
+#    Time: 180 ns  Iteration: 0  Instance: /tb_fpaddercontrolpath
+# ** Failure: End of simulation
+#    Time: 180 ns  Iteration: 0  Process: /tb_fpaddercontrolpath/stim_proc File: Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd
+# Break in Process stim_proc at Z:/Git/ceg3156-lab1/tb_fpAdderControlPath.vhd line 168
