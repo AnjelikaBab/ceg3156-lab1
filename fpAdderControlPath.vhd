@@ -35,7 +35,7 @@ BEGIN
         o_qBar => open);
 
     -- State registers
-    stateRegloop: FOR i IN 1 TO 11 GENERATE
+    stateRegloop: FOR i IN 1 TO 20 GENERATE
         state_n: enardFF_2 PORT MAP(
             i_resetBar => control_path_reset,
             i_d => state_in(i),
@@ -47,25 +47,50 @@ BEGIN
 
     control_path_reset <= NOT reset;
 
+    --Empty States
+    state_in(11) <= state_out(0);
+    state_in(13) <= state_out(1);
+    state_in(12) <= state_out(2);
+    state_in(14) <= state_out(3) OR state_out(4);
+    state_in(19) <= state_out(5);
+    state_in(15) <= state_out(6);
+    state_in(16) <= state_out(7);
+    state_in(17) <= state_out(8);
+    state_in(18) <= state_out(9);
+
     -- State Input Signals
     state_in(0) <= reset;
-    state_in(1) <= exp1LtExp2 AND (NOT expEqual) AND (state_out(0) OR state_out(1) OR state_out(2));
-    state_in(2) <= (NOT exp1LtExp2) AND (NOT expEqual) AND (state_out(0) OR state_out(1) OR state_out(2));
-    state_in(3) <= expEqual AND (sign1 XOR sign2) AND (NOT sign1) AND (state_out(0) OR state_out(1) OR state_out(2));
-    state_in(4) <= expEqual AND (sign1 XOR sign2) AND sign1 AND (state_out(0) OR state_out(1) OR state_out(2));
-    state_in(5) <= expEqual AND (NOT (sign1 XOR sign2)) AND (state_out(0) OR state_out(1) OR state_out(2));
-    state_in(6) <= state_out(5) AND manResMSB;
-    state_in(7) <= (state_out(3) OR state_out(4)) AND manResNeg;
+
+    state_in(1) <= exp1LtExp2 AND (NOT expEqual) AND (state_out(11) OR state_out(12) OR state_out(13));
+
+    state_in(2) <= (NOT exp1LtExp2) AND (NOT expEqual) AND (state_out(11) OR state_out(12) OR state_out(13));
+
+    state_in(3) <= expEqual AND (sign1 XOR sign2) AND (NOT sign1) AND (state_out(11) OR state_out(12) OR state_out(13));
+
+    state_in(4) <= expEqual AND (sign1 XOR sign2) AND sign1 AND (state_out(11) OR state_out(12) OR state_out(13));
+
+    state_in(5) <= expEqual AND (NOT (sign1 XOR sign2)) AND (state_out(11) OR state_out(12) OR state_out(13));
+
+    state_in(6) <= state_out(19) AND manResMSB;
+
+    state_in(7) <= state_out(14) AND manResNeg;
+
     state_in(8) <= manResLSB AND 
-                   (state_out(6) OR (state_out(5) AND (NOT manResMSB)) OR
-                   (manResMSB AND (state_out(9) OR state_out(7) OR ((NOT manResNeg) AND (state_out(3) OR state_out(4))))));
-    state_in(9) <= NOT manResMSB AND (state_out(7) OR state_out(9) OR ((state_out(3) OR state_out(4)) AND (NOT manResNeg)));
-    state_in(10) <= state_out(8) AND manResMSB;
-    state_in(11) <= state_out(10) OR
-					(state_out(8) AND (NOT manResMSB)) OR 
-					((NOT manResLSB) AND 
-                    (state_out(6) OR (state_out(5) AND (NOT manResMSB)) OR 
-					(manResMSB AND (state_out(7) OR state_out(9) OR ((state_out(3) OR state_out(4)) AND (NOT manResNeg))))));
+                   ((state_out(16) OR (state_out(18) OR (state_out(14) AND (NOT manResNeg)) AND manResMSB)) OR 
+                   state_out(15) OR
+                   (state_out(19) AND manResMSB));
+
+    state_in(9) <= (NOT manResMSB) AND (state_out(16) OR state_out(18) OR ((state_out(14) AND (NOT manResMSB))));
+
+    state_in(10) <= state_out(17) AND manResMSB;
+
+
+    --Done state
+    state_in(20) <=((NOT manResLSB) AND 
+                   ((state_out(16) OR (state_out(18) OR (state_out(14) AND (NOT manResNeg)) AND manResMSB)) OR state_out(15) OR (state_out(19) AND manResMSB))) OR 
+                   (state_out(17) AND (NOT manResMSB)) OR 
+                   state_out(10);
+    
 
     -- Output Control Signals
     loadExpA  <= state_out(0);
@@ -94,5 +119,5 @@ BEGIN
     incExpRes <= state_out(6) OR state_out(10);
     loadExpRes <= state_out(3) OR state_out(4) OR state_out(5);
 
-    done <= state_out(11);
+    done <= state_out(20);
 end rtl;
