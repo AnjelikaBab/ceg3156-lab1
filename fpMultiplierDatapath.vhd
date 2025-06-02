@@ -70,8 +70,8 @@ ARCHITECTURE rtl OF fpMultiplierDatapath IS
     -- stores and increments expRes
     COMPONENT nBitIncrementingReg IS
         GENERIC (n : INTEGER := 3);
-        PORT ( clk, reset: IN STD_LOGIC;
-                load, increment: IN STD_LOGIC; -- load and increment control signals
+        PORT ( clk, reset: IN STD_LOGIC; --active high reset and clock
+                load, increment, decrement: IN STD_LOGIC; -- load and increment control signals
                 loadBits: IN STD_LOGIC_VECTOR(n-1 downto 0); -- bits to load when load is high
                 overflow: OUT STD_LOGIC;
                 o_out: OUT STD_LOGIC_VECTOR(n-1 downto 0) ) ;
@@ -255,6 +255,7 @@ BEGIN
             reset => reset,
             load => ldExpRes,
             increment => incExpRes, -- Increment if needed
+            decrement => '0', -- No decrement operation
             loadBits => expRes_adder_2_out(6 downto 0), -- Load exponent result
             overflow => overflow(4), -- Overflow for exponent result
             o_out => o_expRes -- Output exponent

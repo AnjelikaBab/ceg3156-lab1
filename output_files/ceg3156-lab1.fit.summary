@@ -1,15 +1,15 @@
-Fitter Status : Successful - Mon Jun 02 09:47:33 2025
+Fitter Status : Successful - Mon Jun 02 11:17:34 2025
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : ceg3156-lab1
-Top-level Entity Name : fpMultiplierTop
+Top-level Entity Name : fpAdderDatapath
 Family : Cyclone IV GX
 Device : EP4CGX110DF27C7
 Timing Models : Final
-Total logic elements : 128 / 109,424 ( < 1 % )
-    Total combinational functions : 105 / 109,424 ( < 1 % )
-    Dedicated logic registers : 98 / 109,424 ( < 1 % )
-Total registers : 98
-Total pins : 52 / 426 ( 12 % )
+Total logic elements : 168 / 109,424 ( < 1 % )
+    Total combinational functions : 168 / 109,424 ( < 1 % )
+    Dedicated logic registers : 51 / 109,424 ( < 1 % )
+Total registers : 51
+Total pins : 79 / 426 ( 19 % )
 Total virtual pins : 0
 Total memory bits : 0 / 5,621,760 ( 0 % )
 Embedded Multiplier 9-bit elements : 0 / 560 ( 0 % )

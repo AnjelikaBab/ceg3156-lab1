@@ -4,67 +4,31 @@
 			"name" : "Top",
 			"pins" : [
 				{
-					"name" : "o_signOut",
+					"name" : "expEqual",
 					"strict" : false
 				},
 				{
-					"name" : "o_expOut[0]",
+					"name" : "exp1LtExp2",
 					"strict" : false
 				},
 				{
-					"name" : "o_expOut[1]",
+					"name" : "manResNeg",
 					"strict" : false
 				},
 				{
-					"name" : "o_expOut[2]",
+					"name" : "o_sign1",
 					"strict" : false
 				},
 				{
-					"name" : "o_expOut[3]",
+					"name" : "o_sign2",
 					"strict" : false
 				},
 				{
-					"name" : "o_expOut[4]",
+					"name" : "manResMSB",
 					"strict" : false
 				},
 				{
-					"name" : "o_expOut[5]",
-					"strict" : false
-				},
-				{
-					"name" : "o_expOut[6]",
-					"strict" : false
-				},
-				{
-					"name" : "o_manOut[0]",
-					"strict" : false
-				},
-				{
-					"name" : "o_manOut[1]",
-					"strict" : false
-				},
-				{
-					"name" : "o_manOut[2]",
-					"strict" : false
-				},
-				{
-					"name" : "o_manOut[3]",
-					"strict" : false
-				},
-				{
-					"name" : "o_manOut[4]",
-					"strict" : false
-				},
-				{
-					"name" : "o_manOut[5]",
-					"strict" : false
-				},
-				{
-					"name" : "o_manOut[6]",
-					"strict" : false
-				},
-				{
-					"name" : "o_manOut[7]",
+					"name" : "manResLSB",
 					"strict" : false
 				},
 				{
@@ -72,11 +36,87 @@
 					"strict" : false
 				},
 				{
-					"name" : "done",
+					"name" : "signRes",
 					"strict" : false
 				},
 				{
-					"name" : "i_signA",
+					"name" : "expRes[0]",
+					"strict" : false
+				},
+				{
+					"name" : "expRes[1]",
+					"strict" : false
+				},
+				{
+					"name" : "expRes[2]",
+					"strict" : false
+				},
+				{
+					"name" : "expRes[3]",
+					"strict" : false
+				},
+				{
+					"name" : "expRes[4]",
+					"strict" : false
+				},
+				{
+					"name" : "expRes[5]",
+					"strict" : false
+				},
+				{
+					"name" : "expRes[6]",
+					"strict" : false
+				},
+				{
+					"name" : "manRes[0]",
+					"strict" : false
+				},
+				{
+					"name" : "manRes[1]",
+					"strict" : false
+				},
+				{
+					"name" : "manRes[2]",
+					"strict" : false
+				},
+				{
+					"name" : "manRes[3]",
+					"strict" : false
+				},
+				{
+					"name" : "manRes[4]",
+					"strict" : false
+				},
+				{
+					"name" : "manRes[5]",
+					"strict" : false
+				},
+				{
+					"name" : "manRes[6]",
+					"strict" : false
+				},
+				{
+					"name" : "manRes[7]",
+					"strict" : false
+				},
+				{
+					"name" : "subResult",
+					"strict" : false
+				},
+				{
+					"name" : "incManRes",
+					"strict" : false
+				},
+				{
+					"name" : "decExpRes",
+					"strict" : false
+				},
+				{
+					"name" : "exp1[6]",
+					"strict" : false
+				},
+				{
+					"name" : "loadExpA",
 					"strict" : false
 				},
 				{
@@ -88,127 +128,195 @@
 					"strict" : false
 				},
 				{
-					"name" : "i_signB",
+					"name" : "incExp1",
 					"strict" : false
 				},
 				{
-					"name" : "i_expB[6]",
+					"name" : "exp1[5]",
 					"strict" : false
 				},
 				{
-					"name" : "i_expA[6]",
+					"name" : "loadExpB",
 					"strict" : false
 				},
 				{
-					"name" : "i_expA[5]",
+					"name" : "exp2[5]",
 					"strict" : false
 				},
 				{
-					"name" : "i_expB[5]",
+					"name" : "incExp2",
 					"strict" : false
 				},
 				{
-					"name" : "i_expA[4]",
+					"name" : "exp2[6]",
 					"strict" : false
 				},
 				{
-					"name" : "i_expB[4]",
+					"name" : "exp1[4]",
 					"strict" : false
 				},
 				{
-					"name" : "i_expA[3]",
+					"name" : "exp2[4]",
 					"strict" : false
 				},
 				{
-					"name" : "i_expB[3]",
+					"name" : "exp1[3]",
 					"strict" : false
 				},
 				{
-					"name" : "i_expA[2]",
+					"name" : "exp2[3]",
 					"strict" : false
 				},
 				{
-					"name" : "i_expB[2]",
+					"name" : "exp1[2]",
 					"strict" : false
 				},
 				{
-					"name" : "i_expB[0]",
+					"name" : "exp2[2]",
 					"strict" : false
 				},
 				{
-					"name" : "i_expA[0]",
+					"name" : "exp1[1]",
 					"strict" : false
 				},
 				{
-					"name" : "i_expB[1]",
+					"name" : "exp2[1]",
 					"strict" : false
 				},
 				{
-					"name" : "i_expA[1]",
+					"name" : "exp1[0]",
 					"strict" : false
 				},
 				{
-					"name" : "i_manA[7]",
+					"name" : "exp2[0]",
 					"strict" : false
 				},
 				{
-					"name" : "i_manA[6]",
+					"name" : "selManRes",
 					"strict" : false
 				},
 				{
-					"name" : "i_manA[5]",
+					"name" : "resultShiftR",
 					"strict" : false
 				},
 				{
-					"name" : "i_manA[4]",
+					"name" : "resultShiftL",
 					"strict" : false
 				},
 				{
-					"name" : "i_manA[3]",
+					"name" : "loadManRes",
 					"strict" : false
 				},
 				{
-					"name" : "i_manA[2]",
+					"name" : "opOrder",
 					"strict" : false
 				},
 				{
-					"name" : "i_manA[0]",
+					"name" : "subMantissas",
 					"strict" : false
 				},
 				{
-					"name" : "i_manA[1]",
+					"name" : "i_sign1",
 					"strict" : false
 				},
 				{
-					"name" : "i_manB[0]",
+					"name" : "loadSign1",
 					"strict" : false
 				},
 				{
-					"name" : "i_manB[1]",
+					"name" : "i_sign2",
 					"strict" : false
 				},
 				{
-					"name" : "i_manB[2]",
+					"name" : "loadSign2",
 					"strict" : false
 				},
 				{
-					"name" : "i_manB[7]",
+					"name" : "loadExpRes",
 					"strict" : false
 				},
 				{
-					"name" : "i_manB[3]",
+					"name" : "incExpRes",
 					"strict" : false
 				},
 				{
-					"name" : "i_manB[4]",
+					"name" : "man1[0]",
 					"strict" : false
 				},
 				{
-					"name" : "i_manB[5]",
+					"name" : "shiftRMan1",
 					"strict" : false
 				},
 				{
-					"name" : "i_manB[6]",
+					"name" : "loadMan1",
+					"strict" : false
+				},
+				{
+					"name" : "man2[0]",
+					"strict" : false
+				},
+				{
+					"name" : "shiftRMan2",
+					"strict" : false
+				},
+				{
+					"name" : "loadMan2",
+					"strict" : false
+				},
+				{
+					"name" : "man1[1]",
+					"strict" : false
+				},
+				{
+					"name" : "man2[1]",
+					"strict" : false
+				},
+				{
+					"name" : "man1[2]",
+					"strict" : false
+				},
+				{
+					"name" : "man2[2]",
+					"strict" : false
+				},
+				{
+					"name" : "man1[3]",
+					"strict" : false
+				},
+				{
+					"name" : "man2[3]",
+					"strict" : false
+				},
+				{
+					"name" : "man1[4]",
+					"strict" : false
+				},
+				{
+					"name" : "man2[4]",
+					"strict" : false
+				},
+				{
+					"name" : "man1[5]",
+					"strict" : false
+				},
+				{
+					"name" : "man2[5]",
+					"strict" : false
+				},
+				{
+					"name" : "man1[6]",
+					"strict" : false
+				},
+				{
+					"name" : "man2[6]",
+					"strict" : false
+				},
+				{
+					"name" : "man1[7]",
+					"strict" : false
+				},
+				{
+					"name" : "man2[7]",
 					"strict" : false
 				}
 			]
