@@ -12,7 +12,7 @@ ENTITY fpMultiplierControlPathTop is
 END fpMultiplierControlPathTop;
 
 ARCHITECTURE rtl OF fpMultiplierControlPathTop is
-    SIGNAL state_in, state_out: STD_LOGIC_VECTOR(6 downto 0);
+    SIGNAL state_in, state_out: STD_LOGIC_VECTOR(5 downto 0);
     SIGNAL control_path_reset: STD_LOGIC;
 
     COMPONENT enardFF_2
