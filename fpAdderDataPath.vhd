@@ -20,14 +20,16 @@ END fpAdderDatapath;
 
 ARCHITECTURE rtl OF fpAdderDatapath IS
     SIGNAL exp1_reg_out, exp2_reg_out: STD_LOGIC_VECTOR(6 DOWNTO 0);
-    SIGNAL man1_reg_out, man2_reg_out: STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL exp1_reg_out1: STD_LOGIC_VECTOR(7 DOWNTO 0); -- Extended exponent for result
+    SIGNAL man1_reg_out, man2_reg_out: STD_LOGIC_VECTOR(8 DOWNTO 0);
+    SIGNAL man1_reg_in, man2_reg_in: STD_LOGIC_VECTOR(8 DOWNTO 0);
     SIGNAL sign1_reg_out, sign2_reg_out: STD_LOGIC;
-    SIGNAL mux1_out, mux2_out: STD_LOGIC_VECTOR(7 DOWNTO 0); -- Mux outputs for mantissa selection
-    SIGNAL man_addIn_1, man_addIn_2, man_sum_out: STD_LOGIC_VECTOR(9 DOWNTO 0); -- 11-bit inputs for addition    
-    SIGNAL man_sum_out2: STD_LOGIC_VECTOR(10 DOWNTO 0); -- 11-bit output for mantissa sum
-    SIGNAL manRes_reg_in, manRes_reg_out: STD_LOGIC_VECTOR(10 DOWNTO 0);
-    SIGNAL manResRoundBits: STD_LOGIC_VECTOR(10 DOWNTO 0); 
-    SIGNAL rounded_manRes: STD_LOGIC_VECTOR(10 DOWNTO 0);
+    SIGNAL mux1_out, mux2_out: STD_LOGIC_VECTOR(8 DOWNTO 0); -- Mux outputs for mantissa selection
+    SIGNAL man_addIn_1, man_addIn_2, man_sum_out: STD_LOGIC_VECTOR(10 DOWNTO 0); -- 11-bit inputs for addition    
+    SIGNAL man_sum_out2: STD_LOGIC_VECTOR(11 DOWNTO 0); -- 11-bit output for mantissa sum
+    SIGNAL manRes_reg_in, manRes_reg_out: STD_LOGIC_VECTOR(11 DOWNTO 0);
+    SIGNAL manResRoundBits: STD_LOGIC_VECTOR(11 DOWNTO 0); 
+    SIGNAL rounded_manRes: STD_LOGIC_VECTOR(11 DOWNTO 0);
     SIGNAL int_expRes: STD_LOGIC_VECTOR(7 DOWNTO 0); -- Intermediate exponent result
     SIGNAL overflow: STD_LOGIC_VECTOR(4 DOWNTO 0); -- Overflow signals for various components
     SIGNAL reset_n: STD_LOGIC; -- Active low reset signal
@@ -162,8 +164,11 @@ begin
             o_out => exp2_reg_out
         );
 
+    man1_reg_in <= '1' & man1; -- Input mantissa for first number
+    man2_reg_in <= '1' & man2; -- Input mantissa for second number
+
     man1_reg: nBitShiftRegister
-        GENERIC MAP (n => 8)
+        GENERIC MAP (n => 9)
         PORT MAP (
             i_resetBar => reset_n,
             i_clock => clk,
@@ -171,13 +176,13 @@ begin
             i_shift_right => shiftRMan1,
             i_shift_left => '0',
             serial_in => '0',
-            parallel_in => man1,
+            parallel_in => man1_reg_in,
             parallel_out => man1_reg_out,
             serial_out => open
         );
 
     man2_reg: nBitShiftRegister
-        GENERIC MAP (n => 8)
+        GENERIC MAP (n => 9)
         PORT MAP (
             i_resetBar => reset_n,
             i_clock => clk,
@@ -185,11 +190,12 @@ begin
             i_shift_right => shiftRMan2,
             i_shift_left => '0',
             serial_in => '0',
-            parallel_in => man2,
+            parallel_in => man2_reg_in,
             parallel_out => man2_reg_out,
             serial_out => open
         );
 
+    exp1_reg_out1 <= '0' & exp1_reg_out;
     -- resultant exponent and sign
     expRes_reg: nBitIncrementingReg
         GENERIC MAP (n => 8)
@@ -199,12 +205,12 @@ begin
             load => loadExpRes,
             increment => incExpRes,
             decrement => decExpRes,
-            loadBits => (others => '0'), -- No bits to load, just increment
+            loadBits => exp1_reg_out1, -- No bits to load, just increment
             overflow => overflow(2),
             o_out => int_expRes
         );
 
-    signRes <= manRes_reg_out(10) OR (sign1_reg_out AND sign2_reg_out);
+    signRes <= manRes_reg_out(11) OR (sign1_reg_out AND sign2_reg_out);
 
     --compare exponents
     expComparator: nbitcomparator
@@ -220,7 +226,7 @@ begin
     -- mantissa result circuit
     -- these muxes feed into the adder that computes the mantissa
     mux1: nbitmux21
-        GENERIC MAP (n => 8)
+        GENERIC MAP (n => 9)
         PORT MAP (
             s => opOrder,
             x0 => man2_reg_out,
@@ -229,7 +235,7 @@ begin
         );
 
     mux2: nbitmux21
-        GENERIC MAP (n => 8)
+        GENERIC MAP (n => 9)
         PORT MAP (
             s => opOrder,
             x0 => man1_reg_out,
@@ -242,7 +248,7 @@ begin
     man_addIn_2 <= "00" & mux2_out; 
 
     mux_sum_adder: nBitAdderSubtractor
-        GENERIC MAP (n => 10)
+        GENERIC MAP (n => 11)
         PORT MAP (
             i_Ai => man_addIn_1,
             i_Bi => man_addIn_2,
@@ -255,7 +261,7 @@ begin
     man_sum_out2 <= man_sum_out & '0';
 
     manRes_mux: nbitmux21
-        GENERIC MAP (n => 11)
+        GENERIC MAP (n => 12)
         PORT MAP (
             s => selManRes,
             x0 => man_sum_out2,
@@ -264,7 +270,7 @@ begin
         );
 
     manRes_reg: nBitShiftRegister
-        GENERIC MAP (n => 11)
+        GENERIC MAP (n => 12)
         PORT MAP (
             i_resetBar => reset_n,
             i_clock => clk,
@@ -279,16 +285,16 @@ begin
 
     -- rounding and complimenting (if needed)
     roundBits_mux: nbitmux21
-        GENERIC MAP (n => 11)
+        GENERIC MAP (n => 12)
         PORT MAP (
             s => incManRes,
-            x0 => "00000000000",
-            x1 => "00000000001", -- No second input for rounding
+            x0 => "000000000000",
+            x1 => "000000000001", -- No second input for rounding
             y => manResRoundBits
         );
 
     manResRoundComp: nBitAdderSubtractor
-        GENERIC MAP (n => 11)
+        GENERIC MAP (n => 12)
         PORT MAP (
             i_Ai => manResRoundBits,
             i_Bi => manRes_reg_out,
@@ -300,8 +306,8 @@ begin
 
     -- Output mantissa and status signals
     manRes <= rounded_manRes(8 DOWNTO 1); 
-    manResNeg <= rounded_manRes(10); -- sign bit
-    manResMSB <= rounded_manRes(9); -- second bit before radix
+    manResNeg <= rounded_manRes(11); -- sign bit
+    manResMSB <= rounded_manRes(10); -- second bit before radix
     manResLSB <= rounded_manRes(0); -- last bit after radix
     o_sign1 <= sign1_reg_out;
     o_sign2 <= sign2_reg_out;

@@ -3,7 +3,7 @@ USE ieee.std_logic_1164.ALL;
 
 ENTITY fpMultiplierControlPathTop is
     PORT(
-        clk, reset: IN STD_LOGIC;
+        clk, reset, start: IN STD_LOGIC;
         multRdy, manResMSB : IN STD_LOGIC; -- Status signals
         ldExp1, ldExp2, ldMan1, ldMan2, ldSign1, ldSign2, ldManRes, ldExpRes: OUT STD_LOGIC; -- Load control signals
         shiftRManRes: OUT STD_LOGIC; -- Shift control signals
@@ -45,8 +45,8 @@ BEGIN
     END GENERATE stateRegloop;
 
     -- State Input Signals
-    state_in(0) <= reset;
-    state_in(1) <= state_out(0) OR (state_out(1) AND (NOT multRdy));
+    state_in(0) <= reset OR (NOT start AND state_out(0));
+    state_in(1) <= (state_out(0) AND start) OR (state_out(1) AND (NOT multRdy));
     state_in(2) <= state_out(1) AND multRdy AND manResMSB;
     state_in(3) <= state_out(2) OR (state_out(1) AND multRdy AND (NOT manResMSB));
     state_in(4) <= state_out(3) AND manResMSB;

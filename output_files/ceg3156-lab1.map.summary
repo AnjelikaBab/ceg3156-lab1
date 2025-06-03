@@ -1,18 +1,18 @@
-Analysis & Synthesis Status : Failed - Mon Jun 02 13:56:21 2025
+Analysis & Synthesis Status : Successful - Mon Jun 02 22:59:36 2025
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : ceg3156-lab1
 Top-level Entity Name : fpMultiplierTop
 Family : Cyclone IV GX
-Total logic elements : N/A until Partition Merge
-    Total combinational functions : N/A until Partition Merge
-    Dedicated logic registers : N/A until Partition Merge
-Total registers : N/A until Partition Merge
-Total pins : N/A until Partition Merge
-Total virtual pins : N/A until Partition Merge
-Total memory bits : N/A until Partition Merge
-Embedded Multiplier 9-bit elements : N/A until Partition Merge
-Total GXB Receiver Channel PCS : N/A until Partition Merge
-Total GXB Receiver Channel PMA : N/A until Partition Merge
-Total GXB Transmitter Channel PCS : N/A until Partition Merge
-Total GXB Transmitter Channel PMA : N/A until Partition Merge
-Total PLLs : N/A until Partition Merge
+Total logic elements : 150
+    Total combinational functions : 108
+    Dedicated logic registers : 101
+Total registers : 101
+Total pins : 53
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total GXB Receiver Channel PCS : 0
+Total GXB Receiver Channel PMA : 0
+Total GXB Transmitter Channel PCS : 0
+Total GXB Transmitter Channel PMA : 0
+Total PLLs : 0

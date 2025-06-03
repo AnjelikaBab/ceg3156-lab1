@@ -72,6 +72,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "done",
+					"strict" : false
+				},
+				{
 					"name" : "i_signA",
 					"strict" : false
 				},
@@ -144,6 +148,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "start",
+					"strict" : false
+				},
+				{
 					"name" : "i_manA[7]",
 					"strict" : false
 				},
@@ -188,6 +196,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "i_manB[7]",
+					"strict" : false
+				},
+				{
 					"name" : "i_manB[3]",
 					"strict" : false
 				},
@@ -201,10 +213,6 @@
 				},
 				{
 					"name" : "i_manB[6]",
-					"strict" : false
-				},
-				{
-					"name" : "i_manB[7]",
 					"strict" : false
 				}
 			]

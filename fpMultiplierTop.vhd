@@ -3,7 +3,7 @@ USE ieee.std_logic_1164.ALL;
 
 ENTITY fpMultiplierTop IS
     PORT(
-        clk, reset: IN STD_LOGIC;
+        clk, reset, start: IN STD_LOGIC;
         i_manA, i_manB: IN STD_LOGIC_VECTOR(7 downto 0); -- Mantissa inputs
         i_expA, i_expB: IN STD_LOGIC_VECTOR(6 downto 0); -- Exponent inputs
         i_signA, i_signB: IN STD_LOGIC; -- Sign inputs
@@ -23,7 +23,7 @@ ARCHITECTURE rtl OF fpMultiplierTop IS
 
     COMPONENT fpMultiplierControlPathTop
         PORT(
-            clk, reset: IN STD_LOGIC;
+            clk, reset, start: IN STD_LOGIC;
             multRdy, manResMSB : IN STD_LOGIC; -- Status signals
             ldExp1, ldExp2, ldMan1, ldMan2, ldSign1, ldSign2, ldManRes, ldExpRes: OUT STD_LOGIC; -- Load control signals
             shiftRManRes: OUT STD_LOGIC; -- Shift control signals
@@ -55,6 +55,7 @@ BEGIN
         PORT MAP(
             clk => clk,
             reset => reset,
+            start => start,
             multRdy => multRdy,
             manResMSB => manResMSB,
             ldExp1 => ldExp1,
